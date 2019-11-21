@@ -1,0 +1,9 @@
+# system
+.idea
+.DS_Store
+
+# npm
+node_modules
+
+# nextjs
+.next
