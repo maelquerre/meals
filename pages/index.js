@@ -1,7 +1,6 @@
-import Layout from '../components/Layout'
 import Link from 'next/link'
 
-import demo from '../api/demo'
+// import demo from '../api/meals/demo'
 
 function getPosts() {
   return [
@@ -11,47 +10,12 @@ function getPosts() {
   ]
 }
 
-const PostLink = ({ post }) => (
-  <li key={post.id}>
-    <Link href="/p/[id]" as={`/p/${post.id}`}>
-      <a>{post.title}</a>
-    </Link>
-    <style jsx>{`
-        li {
-          list-style: none;
-          margin: 5px 0;
-        }
-
-        a {
-          text-decoration: none;
-          color: blue;
-        }
-
-        a:hover {
-          opacity: 0.6;
-        }`}</style>
-  </li>
-)
-
-export default function Blog() {
+export default () => {
   return (
-    <Layout>
+    <>
       <h1>My Blog</h1>
-      <ul>
-        {getPosts().map(post => (
-          <PostLink key={post.id} post={post} />
-        ))}
-      </ul>
-      <style jsx>{`
-        h1,
-        a {
-          font-family: 'Arial', sans-serif;
-        }
 
-        ul {
-          padding: 0;
-        }
-      `}</style>
-    </Layout>
+      <Link href="/add"><a className="btn btn--primary">Add +</a></Link>
+    </>
   )
 }
