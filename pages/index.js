@@ -1,6 +1,8 @@
 import Layout from '../components/Layout'
 import Link from 'next/link'
 
+import demo from '../api/demo'
+
 function getPosts() {
   return [
     { id: 'hello-nextjs', title: 'Hello Next.js' },
