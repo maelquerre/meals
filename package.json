@@ -22,6 +22,7 @@
   "homepage": "https://github.com/glascode/meals#readme",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
+    "feather-icons": "^4.24.1",
     "next": "^9.1.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

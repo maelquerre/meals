@@ -1,3 +1,20 @@
+const days = [
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday',
+  'sunday'
+]
+
+const meals = [
+  'breakfast',
+  'lunch',
+  'snack',
+  'dinner'
+]
+
 const foodGroups = [
   {
     id: 1,
@@ -103,3 +120,5 @@ const recommendations = [
     period: 'day'
   }
 ]
+
+export { days, meals, foodGroups, recommendations }

@@ -7,7 +7,9 @@ import Head from 'next/head'
 class Layout extends React.Component {
   render() {
     const { children } = this.props
-    return <div className='layout'>{children}</div>
+    return <>
+      <main className="w-11/12 m-auto">{children}</main>
+    </>
   }
 }
 
@@ -18,7 +20,7 @@ export default class Meals extends App {
       <>
         <Head>
           <title>Meals</title>
-          <link href="https://cdn.jsdelivr.net/gh/glascode/grid-system@master/css/grid-system.min.css" rel="stylesheet" />
+          <link href="https://cdn.jsdelivr.net/gh/Glascode/matrix@master/css/matrix.min.css" rel="stylesheet" />
         </Head>
         <Layout>
           <Component {...pageProps} />

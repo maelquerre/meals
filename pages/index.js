@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import MealsView from '../components/MealsView'
 
-// import demo from '../api/meals/demo'
+import { days, foodGroups, recommendations } from '../api/meals/data'
+
 
 function getPosts() {
   return [
@@ -10,12 +12,17 @@ function getPosts() {
   ]
 }
 
+
 export default () => {
+  let activeDay = 'monday'
+
   return (
     <>
-      <h1>My Blog</h1>
+      <h1>Meals</h1>
 
-      <Link href="/add"><a className="btn btn--primary">Add +</a></Link>
+      <MealsView />
+
+      {/*<Link href="/add"><a className="btn btn--primary">Add +</a></Link>*/}
     </>
   )
 }
