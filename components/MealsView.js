@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from './Icon'
+import { ChevronDown } from 'react-feather'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
 
 class MealsView extends React.Component {
@@ -7,8 +7,21 @@ class MealsView extends React.Component {
     super(props)
 
     this.state = {
-      activeDay: 'monday'
+      activeDay: 'monday',
+      intakes: {}
     }
+
+
+    this.setState({
+      // TODO: Dynamically set days and meals in the `intakes` object
+      intakes: {
+        // days.forEach(day => {[day]: {
+        //   meals.forEach(meal => {
+        //     [meal]: []
+        //   })
+        // }}
+      }
+    })
   }
 
   changeActiveDay(day) {
@@ -32,8 +45,9 @@ class MealsView extends React.Component {
           {meals.map((meal, index) => {
             return <div key={index} className="mb-5">
               <h2 className="mb-2 text-lg font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
+
               <div className="flex">
-                <div>
+                <div className="mr-5">
                   <label htmlFor="name" className="label">
                     Food group
                   </label>
@@ -45,7 +59,7 @@ class MealsView extends React.Component {
                       })}
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      {/*<Icon name="chevron-down"/>*/}
+                      <ChevronDown />
                     </div>
                   </div>
                 </div>
