@@ -41,36 +41,46 @@ class MealsView extends React.Component {
           })}
         </nav>
 
-        <div>
+        <div className="grid columns-3" style={{ gridTemplateColumns: 'max-content 1fr 1fr' }}>
           {meals.map((meal, index) => {
-            return <div key={index} className="mb-5">
-              <h2 className="mb-2 text-lg font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
+            return <>
+              <h2 className="mb-2 mr-2 text-lg font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
 
-              <div className="flex">
-                <div className="mr-5">
-                  <label htmlFor="name" className="label">
-                    Food group
-                  </label>
-                  <div className="relative">
-                    <select className="select" id="grid-state">
-                      <option disabled hidden selected>Food group</option>
-                      {foodGroups.map((foodGroup, index) => {
-                        return <option key={index}>{foodGroup.name}</option>
-                      })}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <ChevronDown />
-                    </div>
+              <div className="mr-5">
+                <label htmlFor={`foodGroup${index}`} className="label">
+                  Food group
+                </label>
+                <div className="relative">
+                  <select className="select" id={`foodGroup${index}`}>
+                    <option disabled hidden selected>Food group</option>
+                    {foodGroups.map((foodGroup, index) => {
+                      return <option key={index}>{foodGroup.name}</option>
+                    })}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <ChevronDown />
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="name" className="label">
-                    Quantity
-                  </label>
-                  <input className="input" />
+              </div>
+              <div>
+                <label htmlFor={`portion${index}`} className="label">
+                  Portion
+                </label>
+                <div className="custom-number-input h-10 w-32">
+                  <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                    <button data-action="decrement" className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                      <span className="m-auto text-2xl">−</span>
+                    </button>
+                    <input type="number appearance-none"
+                           className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                           name={`portion${index}`} id={`portion${index}`} value="0"/>
+                    <button data-action="increment" className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                      <span className="m-auto text-2xl">+</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           })}
         </div>
       </div>

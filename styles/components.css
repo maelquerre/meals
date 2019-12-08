@@ -17,14 +17,17 @@
 
 .input {
   @apply p-2 w-full appearance-none border rounded shadow text-gray-700 leading-tight;
-
-  &:focus {
-    @apply outline-none shadow-outline;
-  }
 }
 
 .select {
   @apply block p-2 pr-8 appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 rounded leading-tight;
+}
+
+.input,
+.select {
+  &:focus {
+    @apply outline-none shadow-outline;
+  }
 }
 
 
