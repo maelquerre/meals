@@ -21,7 +21,8 @@ export default class Meals extends App {
       <>
         <Head>
           <title>Meals</title>
-          <link href="https://cdn.jsdelivr.net/gh/Glascode/matrix@master/css/matrix.min.css" rel="stylesheet" />
+          <link rel="icon" type="image/png" href="/favicon.png" />
+          <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Glascode/matrix@master/css/matrix.min.css" />
         </Head>
         <Layout>
           <Component {...pageProps} />
