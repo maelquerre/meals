@@ -30,8 +30,10 @@ class MealsView extends React.Component {
 
   updatePortion(meal, amount) {
     let newIntakes = { ...this.state.intakes }
-    newIntakes[this.state.activeDay][meal].portions += amount
-    this.setState({ intakes: newIntakes })
+    if (newIntakes[this.state.activeDay][meal].portions + amount >= 0) {
+      newIntakes[this.state.activeDay][meal].portions += amount
+      this.setState({ intakes: newIntakes })
+    }
   }
 
   render() {
@@ -80,7 +82,7 @@ class MealsView extends React.Component {
                     <button onClick={() => this.updatePortion(meal, -1)}
                             data-action="decrement"
                             className="bg-gray-200 text-gray-700 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                      <Minus className="m-auto" size={18} />
+                      <Minus className="m-auto" size={16} />
                     </button>
                     <input type="number appearance-none"
                            className="outline-none focus:outline-none text-center w-full bg-gray-200 text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
@@ -90,7 +92,7 @@ class MealsView extends React.Component {
                     <button onClick={() => this.updatePortion(meal, 1)}
                             data-action="increment"
                             className="bg-gray-200 text-gray-700 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                      <Plus className="m-auto" size={18} />
+                      <Plus className="m-auto" size={16} />
                     </button>
                   </div>
                 </div>
