@@ -1,8 +1,4 @@
-import Link from 'next/link'
 import MealsView from '../components/MealsView'
-
-import { days, foodGroups, recommendations } from '../api/meals/data'
-
 
 function getPosts() {
   return [
@@ -14,8 +10,6 @@ function getPosts() {
 
 
 export default () => {
-  let activeDay = 'monday'
-
   return (
     <>
       <h1>Meals</h1>

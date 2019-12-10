@@ -17,9 +17,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/glascode/meals/issues"
+    "url": "https://github.com/Glascode/meals/issues"
   },
-  "homepage": "https://github.com/glascode/meals#readme",
+  "homepage": "https://github.com/Glascode/meals#readme",
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "next": "^9.1.4",
