@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, Plus, Minus } from 'react-feather'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
 
 class MealsView extends React.Component {
@@ -20,8 +20,6 @@ class MealsView extends React.Component {
       })
     })
 
-    console.log(this.state)
-
     this.changeActiveDay = this.changeActiveDay.bind(this)
     this.updatePortion = this.updatePortion.bind(this)
   }
@@ -31,35 +29,39 @@ class MealsView extends React.Component {
   }
 
   updatePortion(meal, amount) {
-    // TODO: improve state change
-    this.setState(state => (state.intakes[this.state.activeDay][meal].portions += amount, state))
+    let newIntakes = { ...this.state.intakes }
+    newIntakes[this.state.activeDay][meal].portions += amount
+    this.setState({ intakes: newIntakes })
   }
 
   render() {
     return (
       <div>
-        <nav className="flex mb-3">
+        <nav className="flex justify-between mb-5">
           {days.map((day, index) => {
             return <div key={index}
                         onClick={() => this.changeActiveDay(day)}
-                        className={'mr-2 pb-2 border-solid border-primary cursor-pointer' + (day === this.state.activeDay ? ' border-b-2' : '')}>
+                        className={'mr-2 pb-2 border-solid border-b-2 cursor-pointer' + (day === this.state.activeDay ? ' border-primary' : '')}>
               {day.charAt(0).toUpperCase() + day.slice(1)}
             </div>
           })}
         </nav>
 
-        <div className="grid columns-3" style={{ gridTemplateColumns: 'max-content 1fr 1fr' }}>
+        <div className="grid columns-3 gap-5" style={{ gridTemplateColumns: 'max-content 1fr 1fr' }}>
           {meals.map((meal, index) => {
             return <div key={index} style={{ display: 'contents' }}>
-              <h2 className="mb-2 mr-2 text-lg font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
+              <h2 className="text-lg font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
 
-              <div className="mr-5">
-                <label htmlFor={`foodGroup${index}`} className="label">
+              <div>
+                <label htmlFor={`foodGroup${index}`}
+                       className="block mb-2 text-sm uppercase">
                   Food group
                 </label>
                 <div className="relative">
-                  <select className="select" id={`foodGroup${index}`}>
-                    <option disabled hidden selected>Food group</option>
+                  <select className="select"
+                          id={`foodGroup${index}`}
+                          defaultValue={'default'}>
+                    <option disabled hidden value="default">Choose a food group</option>
                     {foodGroups.map((foodGroup, index) => {
                       return <option key={index}>{foodGroup.name}</option>
                     })}
@@ -70,25 +72,25 @@ class MealsView extends React.Component {
                 </div>
               </div>
               <div>
-                <label htmlFor={`portion${index}`} className="label">
+                <label htmlFor={`portion${index}`} className="block mb-2 text-sm uppercase">
                   Portion
                 </label>
                 <div className="custom-number-input h-10 w-32">
                   <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                     <button onClick={() => this.updatePortion(meal, -1)}
                             data-action="decrement"
-                            className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                      <span className="m-auto text-2xl">−</span>
+                            className="bg-gray-200 text-gray-700 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                      <Minus className="m-auto" size={18} />
                     </button>
                     <input type="number appearance-none"
-                           className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                           className="outline-none focus:outline-none text-center w-full bg-gray-200 text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
                            name={`portion${index}`}
                            id={`portion${index}`}
                            value={this.state.intakes[this.state.activeDay][meal].portions} />
                     <button onClick={() => this.updatePortion(meal, 1)}
                             data-action="increment"
-                            className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                      <span className="m-auto text-2xl">+</span>
+                            className="bg-gray-200 text-gray-700 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                      <Plus className="m-auto" size={18} />
                     </button>
                   </div>
                 </div>

@@ -12,7 +12,7 @@ function getPosts() {
 export default () => {
   return (
     <>
-      <h1>Meals</h1>
+      <h1 className="mb-8">Meals</h1>
 
       <MealsView />
 
