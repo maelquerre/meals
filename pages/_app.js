@@ -1,8 +1,9 @@
-import '../styles/index.css'
-
 import React from 'react'
 import App from 'next/app'
 import Head from 'next/head'
+
+import '../styles/index.css'
+
 
 class Layout extends React.Component {
   render() {
