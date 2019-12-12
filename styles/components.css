@@ -2,6 +2,10 @@
 
 .btn {
   @apply py-2 px-4 rounded rounded-full;
+
+  &:focus {
+    @apply outline-none shadow-outline;
+  }
 }
 
 .btn--primary {
@@ -11,6 +15,12 @@
 
 /* Forms */
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .input {
   @apply p-2 w-full appearance-none border rounded shadow text-gray-700 leading-tight;
 }
@@ -19,11 +29,9 @@
   @apply block p-2 pr-8 appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 rounded leading-tight;
 }
 
-.input,
-.select {
-  &:focus {
-    @apply outline-none shadow-outline;
-  }
+.input:focus,
+.select:focus {
+  @apply outline-none shadow-outline;
 }
 
 
