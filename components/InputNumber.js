@@ -11,18 +11,18 @@ class InputNumber extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
-        <div className="flex flex-row h-10 w-full relative bg-transparent mt-1">
-          <button onClick={this.props.increment}
+        <div className="flex flex-row h-full w-full relative mt-1">
+          <button onClick={this.props.decrement}
                   onMouseDown={event => event.preventDefault()}
                   className="number-control-button">
             <Minus className="m-auto" size={16} />
           </button>
           <input type="number"
-                 className="pointer-events-none outline-none select-none text-center w-full bg-gray-200 text-md  text-gray-700"
+                 className="pointer-events-none outline-none select-none text-center w-full bg-gray-200 text-md text-gray-700"
                  name={this.props.name}
                  id={this.props.id}
                  value={this.props.value} />
-          <button onClick={this.props.decrement}
+          <button onClick={this.props.increment}
                   onMouseDown={event => event.preventDefault()}
                   className="number-control-button">
             <Plus className="m-auto" size={16} />

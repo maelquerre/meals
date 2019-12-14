@@ -9,7 +9,7 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props
     return <>
-      <main className="w-11/12 m-auto">{children}</main>
+      <main>{children}</main>
     </>
   }
 }

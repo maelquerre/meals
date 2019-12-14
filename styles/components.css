@@ -22,7 +22,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .number-control-button {
-  @apply bg-gray-200 text-gray-700 h-full w-20 cursor-pointer;
+  @apply text-gray-700 h-full w-20 cursor-pointer;
 
   &:first-child {
     @apply rounded-l-lg

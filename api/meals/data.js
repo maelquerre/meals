@@ -46,7 +46,7 @@ const foodGroups = [
   },
   {
     id: 8,
-    name: 'Cold meats'
+    name: 'Cold cuts'
   },
   {
     id: 9,

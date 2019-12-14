@@ -35,7 +35,9 @@ class MealsView extends React.Component {
         portions: 1
       })
     }
-    newIntakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === foodGroupId).portions += amount >= 1 && this.setState({ intakes: newIntakes })
+    if (newIntakes[this.state.currentDay][meal][newIntakes[this.state.currentDay][meal].findIndex(intake => intake.foodGroupId === foodGroupId)].portions += amount >= 1) {
+      this.setState({ intakes: newIntakes })
+    }
   }
 
   addMeal(meal) {
@@ -97,12 +99,12 @@ class MealsView extends React.Component {
                       Portion
                     </label>
                     <InputNumber className="h-10 w-32"
-                                 increment={() => this.updateFoodPortions(meal, 1)}
-                                 decrement={() => this.updateFoodPortions(meal, -1)}
+                                 increment={() => this.updateFoodPortions(meal, 3, 1)}
+                                 decrement={() => this.updateFoodPortions(meal, 3, -1)}
                                  name={`portion${index}`}
                                  id={`portion${index}`}
                                  value={1} />
-                                 {/*value={this.state.intakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === food)} />*/}
+                    {/*value={this.state.intakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === food)} />*/}
                   </div>
                   <div>
                     <button className="btn btn--primary"
