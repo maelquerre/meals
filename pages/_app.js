@@ -8,9 +8,17 @@ import '../styles/index.css'
 class Layout extends React.Component {
   render() {
     const { children } = this.props
-    return <>
-      <main>{children}</main>
-    </>
+    return (
+      <>
+        <header className="py-4 bg-gray-200">
+          <h1 className="w-11/12 max-w-6xl m-auto text-center">Meals</h1>
+        </header>
+
+        <main>
+          {children}
+        </main>
+      </>
+    )
   }
 }
 

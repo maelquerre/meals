@@ -43,7 +43,7 @@ class AddFoodCard extends React.Component {
           </div>
         </div>
 
-        <div className="h-8 w-full mb-4">
+        <div className="h-8 w-full mb-6">
           <div className="flex h-full w-full relative mt-1">
             <button onClick={() => this.updateFoodPortion(-1)}
                     onMouseDown={event => event.preventDefault()}
@@ -61,12 +61,10 @@ class AddFoodCard extends React.Component {
           </div>
         </div>
 
-        <div>
-          <button className="btn btn--primary block mx-auto"
-                  onClick={() => this.props.addFood(this.state.foodId)}>
-            Add
-          </button>
-        </div>
+        <button className="btn btn--primary block w-full"
+                onClick={() => this.props.addFood(this.state.foodId)}>
+          Add
+        </button>
       </div>
     )
   }

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply font-body;
+  @apply font-body text-gray-800;
 }
 
 h1 {

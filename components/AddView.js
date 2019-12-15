@@ -1,7 +1,5 @@
 import React from 'react'
-import { ChevronDown, Plus, Minus } from 'react-feather'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
-import InputNumber from './InputNumber'
 import AddFoodCard from './AddFoodCard'
 import FoodCard from './FoodCard'
 
@@ -17,30 +15,16 @@ class AddView extends React.Component {
     days.forEach(day => {
       this.state.intakes[day] = {}
       meals.forEach(meal => {
-        this.state.intakes[day][meal] = [{ foodGroupId: 3, portions: 3 }]
+        this.state.intakes[day][meal] = []
       })
     })
 
-    this.changeCurrentDay = this.changeCurrentDay.bind(this)
-    this.updateFoodPortions = this.updateFoodPortions.bind(this)
+    this.updateCurrentDay = this.updateCurrentDay.bind(this)
     this.addFood = this.addFood.bind(this)
   }
 
-  changeCurrentDay(day) {
+  updateCurrentDay(day) {
     this.setState({ currentDay: day })
-  }
-
-  updateFoodPortions(meal, foodGroupId, amount) {
-    let newIntakes = { ...this.state.intakes }
-    if (!newIntakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === foodGroupId)) {
-      newIntakes[this.state.currentDay][meal].push({
-        foodGroupId: foodGroupId,
-        portions: 1
-      })
-    }
-    if (newIntakes[this.state.currentDay][meal][newIntakes[this.state.currentDay][meal].findIndex(intake => intake.foodGroupId === foodGroupId)].portions += amount >= 1) {
-      this.setState({ intakes: newIntakes })
-    }
   }
 
   addFood(foodGroupId) {
@@ -54,7 +38,7 @@ class AddView extends React.Component {
           {days.map((day, index) => {
             return (
               <div key={index}
-                   onClick={() => this.changeCurrentDay(day)}
+                   onClick={() => this.updateCurrentDay(day)}
                    className={'mr-2 py-2 px-4 bg-transparent rounded-full cursor-pointer'
                    + (day === this.state.currentDay ? ' text-white bg-primary' : '')}>
                 {day.charAt(0).toUpperCase() + day.slice(1)}
@@ -67,7 +51,7 @@ class AddView extends React.Component {
           {meals.map((meal, index) => {
             return (
               <div key={index} className="mb-8">
-                <h2 className="mb-4 text-2xl font-semibold">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
+                <h2 className="mb-4 text-3xl">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
 
                 <div className="grid columns-4">
                   {this.state.intakes[this.state.currentDay][meal].map((intake, index) => {
