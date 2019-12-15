@@ -7,9 +7,17 @@ class MealView extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      intakes: props.intakes
+    if (!props.intakes) {
+      this.state = {
+        intakes: []
+      }
+    } else {
+      this.state = {
+        intakes: props.intakes
+      }
     }
+
+    // TODO: props are not updated from AddView
   }
 
   render() {
@@ -22,7 +30,7 @@ class MealView extends React.Component {
             return (
               <IntakeCard key={index}
                           id={intake.foodGroupId}
-                          name={foodGroups.find(foodGroup => foodGroup.id === intake.foodGroupId).name}
+                          name={foodGroups.find(foodGroup => foodGroup.id == intake.foodGroupId).name}
                           portions={intake.portions} />
             )
           })}
