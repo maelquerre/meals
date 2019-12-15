@@ -1,7 +1,6 @@
 import React from 'react'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
-import AddFoodCard from './AddFoodCard'
-import FoodCard from './FoodCard'
+import MealView from './MealView'
 
 class AddView extends React.Component {
   constructor(props) {
@@ -20,15 +19,58 @@ class AddView extends React.Component {
     })
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
-    this.addFood = this.addFood.bind(this)
+    this.addIntake = this.addIntake.bind(this)
   }
 
   updateCurrentDay(day) {
     this.setState({ currentDay: day })
   }
 
-  addFood(foodGroupId) {
+  addIntake(meal, { foodGroupId, portions }) {
+    /* Get intakes to update it after */
+    let intakes = JSON.parse(localStorage.getItem('intakes'))
 
+    /* Update the intake */
+
+    // If the day doesn't exist, initialize it
+    if (!intakes[this.state.currentDay]) {
+      intakes[this.state.currentDay] = {}
+    }
+
+    // If the meal doesn't exist, initialize it
+    if (!intakes[this.state.currentDay][meal]) {
+      intakes[this.state.currentDay][meal] = []
+    }
+
+    const intake = intakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === foodGroupId)
+    // If the intake doesn't exist in the current day's target meal
+    if (!intake) {
+      // Add the intake to the current day's target meal
+      intakes[this.state.currentDay][meal].push({
+        foodGroupId: foodGroupId,
+        portions: portions
+      })
+    } else {
+      // Else, ust update the existing intake's portions
+      for (const i in intakes[this.state.currentDay][meal]) {
+        if (intakes[this.state.currentDay][meal][i].foodGroupId === foodGroupId) {
+          intakes[this.state.currentDay][meal][i].portions += portions
+          break
+        }
+      }
+    }
+
+    /* Update the stored intakes with the updated ones */
+    localStorage.setItem('intakes', JSON.stringify(intakes))
+  }
+
+  componentDidMount() {
+    /* Init the localStorage if not already and link it with the state */
+    if (!localStorage.getItem('intakes')) {
+      localStorage.setItem('intakes', JSON.stringify(this.state.intakes))
+    }
+
+    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) })
   }
 
   render() {
@@ -50,21 +92,11 @@ class AddView extends React.Component {
         <div>
           {meals.map((meal, index) => {
             return (
-              <div key={index} className="mb-8">
-                <h2 className="mb-4 text-3xl">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h2>
-
-                <div className="grid columns-4">
-                  {this.state.intakes[this.state.currentDay][meal].map((intake, index) => {
-                    return (
-                      <FoodCard key={index}
-                                id={intake.foodGroupId}
-                                name={foodGroups.find(foodGroup => foodGroup.id === intake.foodGroupId).name}
-                                portions={intake.portions} />
-                    )
-                  })}
-                  <AddFoodCard addFood={this.addFood} />
-                </div>
-              </div>
+              <MealView key={index}
+                        className="mb-8"
+                        name={meal.charAt(0).toUpperCase() + meal.slice(1)}
+                        intakes={this.state.intakes[this.state.currentDay][meal]}
+                        addIntake={intake => this.addIntake(meal, intake)} />
             )
           })}
         </div>

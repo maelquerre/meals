@@ -1,6 +1,6 @@
 import React from 'react'
 
-function FoodCard(props) {
+function IntakeCard(props) {
   return (
     <div className="flex flex-col py-4 px-6 bg-gray-200 rounded-lg">
       <img src={`/images/food/${props.id}.png`}
@@ -13,4 +13,4 @@ function FoodCard(props) {
   )
 }
 
-export default FoodCard
+export default IntakeCard

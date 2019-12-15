@@ -1,14 +1,14 @@
 import React from 'react'
-import { ChevronDown, Minus, Plus, PlusCircle } from 'react-feather'
+import { ChevronDown, Minus, Plus } from 'react-feather'
 import { foodGroups } from '../api/meals/data'
 
-class AddFoodCard extends React.Component {
+class NewIntakeCard extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       foodId: 1,
-      foodPortion: 1
+      foodPortions: 1
     }
 
     this.updateSelection = this.updateSelection.bind(this)
@@ -19,8 +19,8 @@ class AddFoodCard extends React.Component {
   }
 
   updateFoodPortion(amount) {
-    if (this.state.foodPortion + amount) {
-      this.setState(state => ({ foodPortion: state.foodPortion + amount }))
+    if (this.state.foodPortions + amount >= 1) {
+      this.setState(state => ({ foodPortions: state.foodPortions + amount }))
     }
   }
 
@@ -51,7 +51,7 @@ class AddFoodCard extends React.Component {
               <Minus className="m-auto" size={16} />
             </button>
             <span className="flex items-center justify-center text-center w-full bg-white text-md text-gray-700">
-              {this.state.foodPortion} {this.state.foodPortion > 1 ? 'portions' : 'portion'}
+              {this.state.foodPortions} {this.state.foodPortions > 1 ? 'portions' : 'portion'}
             </span>
             <button onClick={() => this.updateFoodPortion(1)}
                     onMouseDown={event => event.preventDefault()}
@@ -62,7 +62,7 @@ class AddFoodCard extends React.Component {
         </div>
 
         <button className="btn btn--primary block w-full"
-                onClick={() => this.props.addFood(this.state.foodId)}>
+                onClick={() => this.props.addIntake({ foodGroupId: this.state.foodId, portions: this.state.foodPortions })}>
           Add
         </button>
       </div>
@@ -70,4 +70,4 @@ class AddFoodCard extends React.Component {
   }
 }
 
-export default AddFoodCard
+export default NewIntakeCard
