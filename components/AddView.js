@@ -20,6 +20,7 @@ class AddView extends React.Component {
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
     this.addIntake = this.addIntake.bind(this)
+    this.removeIntake = this.removeIntake.bind(this)
   }
 
   updateCurrentDay(day) {
@@ -65,15 +66,25 @@ class AddView extends React.Component {
     this.setState({ intakes: intakes })
   }
 
+  removeIntake(meal, { foodGroupId }) {
+    /* Get intakes to update it after */
+    let intakes = JSON.parse(localStorage.getItem('intakes'))
+
+    const index = intakes[this.state.currentDay][meal].findIndex(intake => intake.foodGroupId == foodGroupId)
+    if (index > -1) {
+      intakes[this.state.currentDay][meal].splice(index, 1)
+      localStorage.setItem('intakes', JSON.stringify(intakes))
+      this.setState({ intakes: intakes })
+    }
+  }
+
   componentDidMount() {
     /* Init the localStorage if not already and link it with the state */
     if (!localStorage.getItem('intakes')) {
       localStorage.setItem('intakes', JSON.stringify(this.state.intakes))
     }
 
-    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) }, () => {
-      this.forceUpdate()
-    })
+    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) })
   }
 
   render() {
@@ -99,7 +110,8 @@ class AddView extends React.Component {
                         className="mb-8"
                         name={meal.charAt(0).toUpperCase() + meal.slice(1)}
                         intakes={this.state.intakes[this.state.currentDay][meal]}
-                        addIntake={intake => this.addIntake(meal, intake)} />
+                        addIntake={intake => this.addIntake(meal, intake)}
+                        removeIntake={intake => this.removeIntake(meal, intake)} />
             )
           })}
         </div>

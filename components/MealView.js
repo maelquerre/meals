@@ -19,7 +19,8 @@ class MealView extends React.Component {
               <IntakeCard key={index}
                           id={intake.foodGroupId}
                           name={foodGroups.find(foodGroup => foodGroup.id == intake.foodGroupId).name}
-                          portions={intake.portions} />
+                          portions={intake.portions}
+                          removeIntake={() => this.props.removeIntake(intake)}/>
             )
           })}
           <NewIntakeCard addIntake={this.props.addIntake} />
