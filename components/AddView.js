@@ -2,6 +2,7 @@ import React from 'react'
 import { ChevronDown, Plus, Minus } from 'react-feather'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
 import InputNumber from './InputNumber'
+import AddFoodCard from './AddFoodCard'
 import FoodCard from './FoodCard'
 
 class AddView extends React.Component {
@@ -16,7 +17,7 @@ class AddView extends React.Component {
     days.forEach(day => {
       this.state.intakes[day] = {}
       meals.forEach(meal => {
-        this.state.intakes[day][meal] = [{ foodGroupId: 3, portions: 1 }]
+        this.state.intakes[day][meal] = [{ foodGroupId: 3, portions: 3 }]
       })
     })
 
@@ -71,14 +72,13 @@ class AddView extends React.Component {
                 <div className="grid columns-4">
                   {this.state.intakes[this.state.currentDay][meal].map((intake, index) => {
                     return (
-                      <div key={index}
-                           className="p-4 bg-gray-100 rounded-lg">
-                        <img src={`/food-groups/${intake.foodGroupId}.png`} />
-                        {foodGroups.find(foodGroup => foodGroup.id === intake.foodGroupId).name}
-                      </div>
+                      <FoodCard key={index}
+                                id={intake.foodGroupId}
+                                name={foodGroups.find(foodGroup => foodGroup.id === intake.foodGroupId).name}
+                                portions={intake.portions} />
                     )
                   })}
-                  <FoodCard addFood={this.addFood} />
+                  <AddFoodCard addFood={this.addFood} />
                 </div>
               </div>
             )

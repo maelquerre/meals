@@ -30,11 +30,11 @@ const foodGroups = [
   },
   {
     id: 4,
-    name: 'White meat'
+    name: 'Dairy products'
   },
   {
     id: 5,
-    name: 'Red meat'
+    name: 'White fish'
   },
   {
     id: 6,
@@ -42,15 +42,15 @@ const foodGroups = [
   },
   {
     id: 7,
-    name: 'White fish'
+    name: 'White meat'
   },
   {
     id: 8,
-    name: 'Cold cuts'
+    name: 'Red meat'
   },
   {
     id: 9,
-    name: 'Dairy products'
+    name: 'Cold cuts'
   }
 ]
 
