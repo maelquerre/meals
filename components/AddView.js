@@ -62,6 +62,7 @@ class AddView extends React.Component {
 
     /* Update the stored intakes with the updated ones */
     localStorage.setItem('intakes', JSON.stringify(intakes))
+    this.setState({ intakes: intakes })
   }
 
   componentDidMount() {
@@ -70,7 +71,9 @@ class AddView extends React.Component {
       localStorage.setItem('intakes', JSON.stringify(this.state.intakes))
     }
 
-    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) })
+    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) }, () => {
+      this.forceUpdate()
+    })
   }
 
   render() {
@@ -90,7 +93,7 @@ class AddView extends React.Component {
         </nav>
 
         <div>
-          {meals.map((meal, index) => {
+          {Object.keys(this.state.intakes[this.state.currentDay]).map((meal, index) => {
             return (
               <MealView key={index}
                         className="mb-8"
