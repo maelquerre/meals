@@ -1,6 +1,7 @@
 import React from 'react'
 import * as utils from '../api/meals/utils'
 import * as data from '../api/meals/data'
+import Meals from '../api/meals/Meals'
 import MealView from './MealView'
 
 class ManageView extends React.Component {
@@ -9,13 +10,23 @@ class ManageView extends React.Component {
 
     this.state = {
       currentDay: 'monday',
-      intakes: []
+      intakes: [],
+      portionsPreferences: data.recommendations,
+      excludedPreferences: [{meal: 'breakfast', foodGroupId: 7}]
     }
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
     this.updateIntakes = this.updateIntakes.bind(this)
     this.addIntake = this.addIntake.bind(this)
     this.removeIntake = this.removeIntake.bind(this)
+    this.generateMeals = this.generateMeals.bind(this)
+  }
+
+  generateMeals() {
+    const meals = new Meals(this.state.intakes, this.state.portionsPreferences, this.state.excludedPreferences)
+    meals.createMeals(data.days, data.meals).then(intakes => {
+      this.updateIntakes(intakes)
+    })
   }
 
   updateCurrentDay(day) {
@@ -86,6 +97,10 @@ class ManageView extends React.Component {
               </div>
             )
           })}
+          <button onClick={this.generateMeals}
+               className={'py-2 px-4 text-white bg-primary rounded-full'}>
+            Generate
+          </button>
         </nav>
 
         <div>
