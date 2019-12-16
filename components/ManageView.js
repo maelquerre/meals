@@ -2,7 +2,7 @@ import React from 'react'
 import { days, meals, foodGroups, recommendations } from '../api/meals/data'
 import MealView from './MealView'
 
-class AddView extends React.Component {
+class ManageView extends React.Component {
   constructor(props) {
     super(props)
 
@@ -83,7 +83,7 @@ class AddView extends React.Component {
   }
 
   componentDidMount() {
-    /* Init the localStorage if not already and link it with the state */
+    /* Init the localStorage intakes if it doesn't already exist and link it with the state */
     if (!localStorage.getItem('intakes')) {
       localStorage.setItem('intakes', JSON.stringify(this.state.intakes))
     }
@@ -124,4 +124,4 @@ class AddView extends React.Component {
   }
 }
 
-export default AddView
+export default ManageView

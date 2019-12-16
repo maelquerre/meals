@@ -1,7 +1,7 @@
 /* Buttons */
 
 .btn {
-  @apply py-1 px-4 rounded-lg;
+  @apply py-1 px-4 text-center rounded-lg;
 
   &:focus {
     @apply outline-none shadow-outline;

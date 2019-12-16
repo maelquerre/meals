@@ -30,93 +30,75 @@ const foodGroups = [
   },
   {
     id: 4,
-    name: 'Dairy products'
-  },
-  {
-    id: 5,
     name: 'White fish'
   },
   {
-    id: 6,
+    id: 5,
     name: 'Oily fish'
   },
   {
-    id: 7,
+    id: 6,
     name: 'White meat'
   },
   {
-    id: 8,
+    id: 7,
     name: 'Red meat'
   },
   {
-    id: 9,
+    id: 8,
     name: 'Cold cuts'
+  },
+  {
+    id: 9,
+    name: 'Dairy products'
   }
 ]
 
-
 const recommendations = [
   {
-    id: 1,
     foodGroupId: 1,
     min: 5,
-    max: null,
     period: 'day'
   },
   {
-    id: 2,
     foodGroupId: 2,
     min: 2,
-    max: null,
     period: 'week'
   },
   {
-    id: 3,
     foodGroupId: 3,
     min: 1,
-    max: null,
     period: 'day'
   },
   {
-    id: 4,
     foodGroupId: 4,
-    min: 0,
     max: 1,
+    period: 'week'
+  },
+  {
+    foodGroupId: 5,
+    max: 1,
+    period: 'week'
+  },
+  {
+    foodGroupId: 6,
+    min: 1,
+    max: 2,
     period: 'day'
   },
   {
-    id: 5,
-    foodGroupId: 5,
-    min: 0,
+    foodGroupId: 7,
     max: 5,
     period: 'week'
   },
   {
-    id: 6,
-    foodGroupId: 6,
-    min: 0,
-    max: 1,
-    period: 'week'
-  },
-  {
-    id: 7,
-    foodGroupId: 7,
-    min: 0,
-    max: 1,
-    period: 'week'
-  },
-  {
-    id: 8,
     foodGroupId: 8,
-    min: 0,
-    max: 1,
+    max: 2,
     period: 'week'
   },
   {
-    id: 9,
     foodGroupId: 9,
     min: 2,
-    max: 2,
     period: 'day'
   }
 ]
