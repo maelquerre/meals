@@ -19,12 +19,18 @@ class AddView extends React.Component {
     })
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
+    this.updateIntakes = this.updateIntakes.bind(this)
     this.addIntake = this.addIntake.bind(this)
     this.removeIntake = this.removeIntake.bind(this)
   }
 
   updateCurrentDay(day) {
     this.setState({ currentDay: day })
+  }
+
+  updateIntakes(intakes) {
+    localStorage.setItem('intakes', JSON.stringify(intakes))
+    this.setState({ intakes: intakes })
   }
 
   addIntake(meal, { foodGroupId, portions }) {
@@ -62,8 +68,7 @@ class AddView extends React.Component {
     }
 
     /* Update the stored intakes with the updated ones */
-    localStorage.setItem('intakes', JSON.stringify(intakes))
-    this.setState({ intakes: intakes })
+    this.updateIntakes(intakes)
   }
 
   removeIntake(meal, { foodGroupId }) {
@@ -73,8 +78,7 @@ class AddView extends React.Component {
     const index = intakes[this.state.currentDay][meal].findIndex(intake => intake.foodGroupId == foodGroupId)
     if (index > -1) {
       intakes[this.state.currentDay][meal].splice(index, 1)
-      localStorage.setItem('intakes', JSON.stringify(intakes))
-      this.setState({ intakes: intakes })
+      this.updateIntakes(intakes)
     }
   }
 
