@@ -14,6 +14,20 @@ class Meals {
     this.intakesPreferences = intakesPreferences
   }
 
+  /*
+  intakes: [
+    {
+      day: 'monday',
+      meals: [
+        {
+          name: 'breakfast',
+          intakes
+        }
+      ]
+    }
+  ]
+  */
+
   /**
    * Generates meals.
    *
