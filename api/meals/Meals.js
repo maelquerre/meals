@@ -1,70 +1,76 @@
-Array.prototype.random = function () {
-  return this[Math.floor((Math.random() * this.length))]
-}
-
-Object.prototype.random = function () {
-  return this[Object.keys(this)[Math.floor(Math.random() * Object.keys(this).length)]]
-}
+import * as utils from './utils'
 
 class Meals {
-  constructor(initialIntakes, intakesPreferences) {
-    this.daysNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-    this.mealsNames = ['breakfast', 'lunch', 'snack', 'dinner']
+  /**
+   *
+   * @param initialIntakes
+   * @param portionsPreferences
+   * @param excludedPreferences An object containing excluded foodGroups for each meal.
+   */
+  constructor(initialIntakes = [], portionsPreferences = [], excludedPreferences = []) {
     this.intakes = initialIntakes
-    this.intakesPreferences = intakesPreferences
+    this.portionsPreferences = portionsPreferences
+    this.excludedPreferences = excludedPreferences
   }
-
-  /*
-  intakes: [
-    {
-      day: 'monday',
-      meals: [
-        {
-          name: 'breakfast',
-          intakes
-        }
-      ]
-    }
-  ]
-  */
 
   /**
    * Generates meals.
    *
-   * @param mealsPreferences An object containing arrays of excluded foodGroups for each meal.
+   * @param days
+   * @param meals
+   * @param portionsPreferences
    * @returns {*}
    */
-  generateMeals(mealsPreferences) {
-    this.daysNames.forEach(dayName => {
-      // Add missing days
-      if (!this.intakes[dayName]) {
-        this.intakes[dayName] = {} // Initialize day
-      }
+  createMeals(days, meals, portionsPreferences) {
+    days.forEach(day => {
+      meals.forEach(meal => {
+        let portionsPreference
+        let newIntake
+        do {
+          portionsPreference = utils.randomItem(portionsPreferences)
+          newIntake = {
+            day: day,
+            meal: meal,
+            foodGroupId: portionsPreference.foodGroupId,
+            portions: portionsPreference.portions
+          }
 
-      // Add missing meals
-      this.mealsNames.forEach(mealName => {
-        if (!this.intakes[dayName][mealName]) {
-          this.intakes[dayName][mealName] = [] // Initialize meal
+          // If the portionsPreference.foodGroupId-intake is not already in the intakes
 
-          let intakePreference
-          do {
-            intakePreference = this.intakesPreferences.random()
+        } while (!this.canBeAdded(portionsPreference, day))
 
-          } while (!this.isValid(intakePreference, dayName, mealsPreferences[mealName]))
-
-          this.intakes[dayName][mealName].push({ foodGroupId: intakePreference.foodGroupId,  })
-        }
+        this.intakes.push(newIntake)
       })
     })
-    return this.intakes
   }
 
-  isValid(intakePreference, day, mealPreferences) {
-    if (mealPreferences.includes(intakePreference.foodGroupId)) {
+  canBeAdded(portionsPreference, day) {
+    if (this.portionsPreferences.includes(portionsPreference.foodGroupId)) {
       return false
     }
 
+    switch (portionsPreference.period) {
+      case 'day':
+        return portionsPreference.portions < this.totalPortionsByDay(portionsPreference.foodGroupId, day)
+      case 'week':
+        return portionsPreference.portions < this.totalPortions(portionsPreference.foodGroupId)
+    }
+
     return true
+  }
+
+  totalPortionsByDay(foodGroupId, day) {
+    const intakes = this.intakes.filter(intake => intake.day === day && intake.foodGroupId == foodGroupId)
+    return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
+  }
+
+  totalPortions(foodGroupId) {
+    const intakes = this.intakes.filter(intake => intake.foodGroupId == foodGroupId)
+    return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
+  }
+
+  getIntakes() {
+    return this.intakes
   }
 }
 

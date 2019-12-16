@@ -1,5 +1,6 @@
 import React from 'react'
-import { days, meals, foodGroups, recommendations } from '../api/meals/data'
+import * as utils from '../api/meals/utils'
+import * as data from '../api/meals/data'
 import MealView from './MealView'
 
 class ManageView extends React.Component {
@@ -8,15 +9,8 @@ class ManageView extends React.Component {
 
     this.state = {
       currentDay: 'monday',
-      intakes: {}
+      intakes: []
     }
-
-    days.forEach(day => {
-      this.state.intakes[day] = {}
-      meals.forEach(meal => {
-        this.state.intakes[day][meal] = []
-      })
-    })
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
     this.updateIntakes = this.updateIntakes.bind(this)
@@ -33,51 +27,38 @@ class ManageView extends React.Component {
     this.setState({ intakes: intakes })
   }
 
-  addIntake(meal, { foodGroupId, portions }) {
-    /* Get intakes to update it after */
+  addIntake(newIntake) {
+    /* Get intakes array to update it after */
     let intakes = JSON.parse(localStorage.getItem('intakes'))
 
-    /* Update the intake */
+    // Check if the intake to add already exists
+    const index = intakes.findIndex(intake => utils.intakeEquals(intake, newIntake))
 
-    // If the day doesn't exist, initialize it
-    if (!intakes[this.state.currentDay]) {
-      intakes[this.state.currentDay] = {}
-    }
-
-    // If the meal doesn't exist, initialize it
-    if (!intakes[this.state.currentDay][meal]) {
-      intakes[this.state.currentDay][meal] = []
-    }
-
-    const intake = intakes[this.state.currentDay][meal].find(intake => intake.foodGroupId === foodGroupId)
-    // If the intake doesn't exist in the current day's target meal
-    if (!intake) {
-      // Add the intake to the current day's target meal
-      intakes[this.state.currentDay][meal].push({
-        foodGroupId: foodGroupId,
-        portions: portions
-      })
+    // If the intake already exists
+    if (index > -1) {
+      // Just update the existing intake's portions
+      intakes[index].portions += newIntake.portions
     } else {
-      // Else, ust update the existing intake's portions
-      for (const i in intakes[this.state.currentDay][meal]) {
-        if (intakes[this.state.currentDay][meal][i].foodGroupId === foodGroupId) {
-          intakes[this.state.currentDay][meal][i].portions += portions
-          break
-        }
-      }
+      // Else, add the new intake
+      intakes.push({
+        day: newIntake.day,
+        meal: newIntake.meal,
+        foodGroupId: newIntake.foodGroupId,
+        portions: newIntake.portions
+      })
     }
 
-    /* Update the stored intakes with the updated ones */
+    /* Update intakes with the updated array */
     this.updateIntakes(intakes)
   }
 
-  removeIntake(meal, { foodGroupId }) {
-    /* Get intakes to update it after */
+  removeIntake(intake) {
+    /* Get intakes array to update it after */
     let intakes = JSON.parse(localStorage.getItem('intakes'))
 
-    const index = intakes[this.state.currentDay][meal].findIndex(intake => intake.foodGroupId == foodGroupId)
+    const index = intakes.findIndex(oldIntake => utils.intakeEquals(oldIntake, intake))
     if (index > -1) {
-      intakes[this.state.currentDay][meal].splice(index, 1)
+      intakes.splice(index, 1)
       this.updateIntakes(intakes)
     }
   }
@@ -95,7 +76,7 @@ class ManageView extends React.Component {
     return (
       <div className={this.props.className}>
         <nav className="flex justify-center py-4 mb-5">
-          {days.map((day, index) => {
+          {data.days.map((day, index) => {
             return (
               <div key={index}
                    onClick={() => this.updateCurrentDay(day)}
@@ -108,14 +89,14 @@ class ManageView extends React.Component {
         </nav>
 
         <div>
-          {Object.keys(this.state.intakes[this.state.currentDay]).map((meal, index) => {
+          {data.meals.map((meal, index) => {
             return (
               <MealView key={index}
                         className="mb-8"
                         name={meal.charAt(0).toUpperCase() + meal.slice(1)}
-                        intakes={this.state.intakes[this.state.currentDay][meal]}
-                        addIntake={intake => this.addIntake(meal, intake)}
-                        removeIntake={intake => this.removeIntake(meal, intake)} />
+                        intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
+                        addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
+                        removeIntake={this.removeIntake} />
             )
           })}
         </div>

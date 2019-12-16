@@ -20,7 +20,7 @@ class NewIntakeCard extends React.Component {
 
   updateFoodPortion(amount) {
     if (this.state.foodPortions + amount >= 1) {
-      this.setState(state => ({ foodPortions: state.foodPortions + amount }))
+      this.setState({ foodPortions: this.state.foodPortions + amount })
     }
   }
 
@@ -62,7 +62,10 @@ class NewIntakeCard extends React.Component {
         </div>
 
         <button className="btn btn--primary block w-full"
-                onClick={() => this.props.addIntake({ foodGroupId: this.state.foodId, portions: this.state.foodPortions })}>
+                onClick={() => this.props.addIntake({
+                  foodGroupId: this.state.foodId,
+                  portions: this.state.foodPortions
+                })}>
           Add
         </button>
       </div>

@@ -28,4 +28,4 @@ const weekIntake = {
 }
 
 const meals = new Meals(weekIntake)
-console.log(meals.generateMeals())
+console.log(meals.createMeals())
