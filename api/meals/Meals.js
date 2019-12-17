@@ -4,7 +4,7 @@ class Meals {
   /**
    *
    * @param initialIntakes
-   * @param portionsPreferences
+   * @param portionsPreferences An array
    * @param excludedPreferences An array containing objects of meals associated with excluded food groups ids.
    */
   constructor(initialIntakes = [], portionsPreferences = [], excludedPreferences = []) {
@@ -25,22 +25,22 @@ class Meals {
       days.forEach(day => {
         meals.forEach(meal => {
           let portionsPreference
+          let newIntake
           do {
             portionsPreference = utils.randomItem(this.portionsPreferences)
-          } while (this.intakes.find(intake => utils.intakeEquals(intake, {
-            day: day,
-            meal: meal,
-            foodGroupId: portionsPreference.foodGroupId
-          }))
-          && !this.isExcluded(portionsPreference.foodGroupId, meal)
-          && !this.hasReachedLimit(portionsPreference, day))
 
-          const newIntake = {
-            day: day,
-            meal: meal,
-            foodGroupId: portionsPreference.foodGroupId,
-            portions: 1
-          }
+            newIntake = {
+              day: day,
+              meal: meal,
+              foodGroupId: portionsPreference.foodGroupId,
+              portions: 1
+            }
+          } while (
+            this.intakes.find(intake => utils.intakeEquals(intake, newIntake))
+            && !this.isExcluded(portionsPreference.foodGroupId, meal)
+            && !this.hasReachedLimit(portionsPreference, day)
+            )
+
           this.intakes.push(newIntake)
         })
       })
@@ -56,9 +56,9 @@ class Meals {
   hasReachedLimit(portionsPreference, day) {
     switch (portionsPreference.period) {
       case 'day':
-        return portionsPreference.portions < this.totalPortionsByDay(portionsPreference.foodGroupId, day)
+        return this.totalPortionsByDay(portionsPreference.foodGroupId, day) < portionsPreference.max
       case 'week':
-        return portionsPreference.portions < this.totalPortions(portionsPreference.foodGroupId)
+        return this.totalPortions(portionsPreference.foodGroupId) < portionsPreference.max
     }
   }
 
