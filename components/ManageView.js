@@ -12,7 +12,8 @@ class ManageView extends React.Component {
       currentDay: 'monday',
       intakes: [],
       portionsPreferences: data.recommendations,
-      excludedPreferences: [{ meal: 'breakfast', foodGroupId: 7 }]
+      excludedPreferences: [{ meal: 'breakfast', foodGroupId: 7 }],
+      errors: []
     }
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
@@ -26,6 +27,8 @@ class ManageView extends React.Component {
     const meals = new Meals(this.state.intakes, this.state.portionsPreferences, this.state.excludedPreferences)
     meals.createMeals(data.days, data.meals).then(intakes => {
       this.updateIntakes(intakes)
+    }).catch(error => {
+      this.setState({ errors: [...this.state.errors].push(error) })
     })
   }
 
