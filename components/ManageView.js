@@ -12,7 +12,7 @@ class ManageView extends React.Component {
       currentDay: 'monday',
       intakes: [],
       portionsPreferences: data.recommendations,
-      excludedPreferences: [{meal: 'breakfast', foodGroupId: 7}]
+      excludedPreferences: [{ meal: 'breakfast', foodGroupId: 7 }]
     }
 
     this.updateCurrentDay = this.updateCurrentDay.bind(this)
@@ -98,7 +98,7 @@ class ManageView extends React.Component {
             )
           })}
           <button onClick={this.generateMeals}
-               className={'py-2 px-4 text-white bg-primary rounded-full'}>
+                  className={'py-2 px-4 text-white bg-primary rounded-full'}>
             Generate
           </button>
         </nav>
