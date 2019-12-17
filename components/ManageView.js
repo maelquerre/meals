@@ -43,7 +43,7 @@ class ManageView extends React.Component {
 
   addIntake(newIntake) {
     /* Get intakes array to update it after */
-    let intakes = JSON.parse(localStorage.getItem('intakes'))
+    let intakes = [...this.state.intakes]
 
     // Check if the intake to add already exists
     const index = intakes.findIndex(intake => utils.intakeEquals(intake, newIntake))

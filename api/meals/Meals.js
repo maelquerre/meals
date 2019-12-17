@@ -35,13 +35,9 @@ class Meals {
               foodGroupId: portionsPreference.foodGroupId,
               portions: 1
             }
-          } while (
-            this.intakes.find(intake => utils.intakeEquals(intake, newIntake))
-            && !this.isExcluded(portionsPreference.foodGroupId, meal)
-            && !this.hasReachedLimit(portionsPreference, day)
-            )
+          } while (this.isExcluded(portionsPreference.foodGroupId, meal) && this.hasReachedLimit(portionsPreference, day))
 
-          this.intakes.push(newIntake)
+          this.addIntake(newIntake)
         })
       })
 
@@ -49,8 +45,27 @@ class Meals {
     })
   }
 
+  addIntake(newIntake) {
+    // Check if the intake to add already exists
+    const index = this.intakes.findIndex(intake => utils.intakeEquals(intake, newIntake))
+
+    // If the intake already exists
+    if (index > -1) {
+      // Just update the existing intake's portions
+      this.intakes[index].portions += newIntake.portions
+    } else {
+      // Else, add the new intake
+      this.intakes.push({
+        day: newIntake.day,
+        meal: newIntake.meal,
+        foodGroupId: newIntake.foodGroupId,
+        portions: newIntake.portions
+      })
+    }
+  }
+
   isExcluded(foodGroupId, meal) {
-    return this.excludedPreferences.find(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal)
+    return this.excludedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
   }
 
   hasReachedLimit(portionsPreference, day) {

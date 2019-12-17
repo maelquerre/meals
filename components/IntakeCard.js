@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Trash } from 'react-feather'
+import { Trash2 } from 'react-feather'
 
 function IntakeCard(props) {
   return (
@@ -8,7 +8,7 @@ function IntakeCard(props) {
       <button onClick={props.removeIntake}
               className="absolute top-0 right-0 p-4 focus:outline-none"
               title="Remove intake">
-        <Trash size={16} className="text-gray-600" />
+        <Trash2 size={16} className="text-gray-600" />
       </button>
 
       <img src={`/images/food/${props.id}.png`}
