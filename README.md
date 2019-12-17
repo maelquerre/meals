@@ -4,6 +4,8 @@
 
 ### Intakes
 
+Each intake is defined for a specific day and meal, with corresponding foodGroup ID and portions.
+
 ```
 intakes: [
   {
