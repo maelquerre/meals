@@ -16,7 +16,7 @@ function IntakeCard(props) {
       <button onClick={props.removeIntake}
               className="md:absolute md:top-0 md:right-0 md:p-4 focus:outline-none"
               title="Remove intake">
-        <Trash2 size={16} className="text-gray-600" />
+        <Trash2 size={18} className="text-gray-600" />
       </button>
     </div>
   )
