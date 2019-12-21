@@ -89,7 +89,7 @@ class ManageView extends React.Component {
   render() {
     return (
       <div className={this.props.className}>
-        <nav className="flex justify-center py-4 mb-5">
+        <nav className="flex justify-center flex-wrap py-4 mb-5">
           {data.days.map((day, index) => {
             return (
               <div key={index}

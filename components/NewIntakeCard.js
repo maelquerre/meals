@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronDown, Minus, Plus } from 'react-feather'
+import { ChevronDown, Minus, Plus, PlusCircle } from 'react-feather'
 import { foodGroups } from '../api/meals/data'
 
 class NewIntakeCard extends React.Component {
@@ -26,12 +26,12 @@ class NewIntakeCard extends React.Component {
 
   render() {
     return (
-      <div className="py-4 px-6 bg-gray-100 rounded-lg border border-dashed border-gray-400">
+      <div className={`flex md:flex-col p-4 md:px-6 bg-gray-100 rounded-lg border border-dashed border-gray-400 ${this.props.className}`}>
         <img src={`/images/food/${this.state.foodId}.png`}
-             className="w-1/2 mx-auto mt-4 mb-8" />
+             className="w-1/6 md:w-1/2 mr-4 md:mx-auto md:mt-4 md:mb-8" />
 
-        <div className="relative mb-4">
-          <select className="select h-10"
+        <div className="relative md:mb-4 h-10">
+          <select className="select"
                   value={this.state.foodId}
                   onChange={this.updateSelection}>
             {foodGroups.map((foodGroup, index) => {
@@ -43,30 +43,39 @@ class NewIntakeCard extends React.Component {
           </div>
         </div>
 
-        <div className="h-8 w-full mb-6">
-          <div className="flex h-full w-full relative mt-1">
+        <div className="flex-shrink-0 h-8 md:mb-6">
+          <div className="flex flex-col md:flex-row h-full w-full relative mt-1">
             <button onClick={() => this.updateFoodPortion(-1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="number-control-button bg-white">
+                    className="px-3 h-full text-gray-700 bg-white rounded-b md:rounded-l-lg cursor-pointer order-3 md:order-1">
               <Minus className="m-auto" size={16} />
             </button>
-            <span className="flex items-center justify-center text-center w-full bg-white text-md text-gray-700">
+
+            <span className="flex items-center justify-center px-4 md:px-0 text-center w-full bg-white text-md text-gray-700 order-2">
               {this.state.foodPortions} {this.state.foodPortions > 1 ? 'portions' : 'portion'}
             </span>
+
             <button onClick={() => this.updateFoodPortion(1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="number-control-button bg-white">
+                    className="px-3 h-full text-gray-700 bg-white rounded-t md:rounded-r-lg cursor-pointer order-1 md:order-3">
               <Plus className="m-auto" size={16} />
             </button>
           </div>
         </div>
 
-        <button className="btn btn--primary block w-full"
+        <button className="btn btn--primary hidden md:block"
                 onClick={() => this.props.addIntake({
                   foodGroupId: this.state.foodId,
                   portions: this.state.foodPortions
                 })}>
           Add
+        </button>
+        <button className="md:hidden"
+                onClick={() => this.props.addIntake({
+                  foodGroupId: this.state.foodId,
+                  portions: this.state.foodPortions
+                })}>
+          <PlusCircle size={24} />
         </button>
       </div>
     )
