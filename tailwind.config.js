@@ -15,6 +15,9 @@ module.exports = {
       },
       colors: {
         'primary': colors.green[400]
+      },
+      fontSize: {
+        'md': '.8125rem'
       }
     }
   },

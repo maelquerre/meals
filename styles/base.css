@@ -1,5 +1,7 @@
-html {
-  font-size: 13px;
+@screen md {
+  html {
+    @apply text-md;
+  }
 }
 
 body {
