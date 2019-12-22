@@ -1,6 +1,6 @@
 @screen md {
   html {
-    @apply text-md;
+    @apply text-sm;
   }
 }
 

@@ -26,9 +26,9 @@ class NewIntakeCard extends React.Component {
 
   render() {
     return (
-      <div className={`flex md:flex-col items-center p-4 md:px-6 bg-gray-100 rounded-xl border border-dashed border-gray-400 ${this.props.className}`}>
+      <div className={`flex md:flex-col p-4 md:px-6 bg-gray-100 rounded-xl border border-dashed border-gray-400 ${this.props.className}`}>
         <img src={`/images/food/${this.state.foodId}.png`}
-             className="w-1/6 md:w-1/2 mr-4 md:mr-0 md:mt-4 md:mb-8" />
+             className="self-center w-1/6 md:w-1/2 mr-4 md:mr-0 md:mt-4 md:mb-8" />
 
         <div className="relative md:mb-4 h-10">
           <select className="select"
@@ -47,17 +47,17 @@ class NewIntakeCard extends React.Component {
           <div className="flex flex-col md:flex-row h-full w-full relative mt-1">
             <button onClick={() => this.updateFoodPortion(-1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="px-3 h-full text-gray-700 bg-white rounded-b md:rounded-l-lg cursor-pointer order-3 md:order-1">
+                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-b md:rounded-l-lg cursor-pointer order-3 md:order-1">
               <Minus className="m-auto" size={16} />
             </button>
 
-            <span className="flex items-center justify-center px-4 md:px-0 text-center w-full bg-white text-md text-gray-700 order-2">
+            <span className="flex items-center justify-center px-4 md:px-0 text-center w-full bg-white text-gray-700 order-2">
               {this.state.foodPortions} {this.state.foodPortions > 1 ? 'portions' : 'portion'}
             </span>
 
             <button onClick={() => this.updateFoodPortion(1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="h-full px-3 text-gray-700 bg-white rounded-t md:rounded-r-lg cursor-pointer order-1 md:order-3">
+                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-t md:rounded-r-lg cursor-pointer order-1 md:order-3">
               <Plus className="m-auto" size={16} />
             </button>
           </div>

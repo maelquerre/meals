@@ -4,9 +4,9 @@ import { Trash2 } from 'react-feather'
 
 function IntakeCard(props) {
   return (
-    <div className={`relative flex md:flex-col p-4 md:px-6 bg-gray-200 rounded-xl border border-transparent ${props.className}`}>
+    <div className={`relative flex md:flex-col items-center p-4 md:px-6 bg-gray-200 rounded-xl border border-transparent ${props.className}`}>
       <img src={`/images/food/${props.id}.png`}
-           className="w-1/6 md:w-1/2 mr-4 md:mx-auto md:mt-4 md:mb-8" />
+           className="w-1/6 md:w-1/2 mr-4 md:mr-0 md:mt-4 md:mb-8" />
 
       <div className="flex-grow flex md:flex-col items-center justify-between md:justify-center mr-8 md:mr-0">
         <div className="text-lg md:text-center text-gray-700 md:px-4 mr-4 md:mr-0 md:mb-4">{props.name}</div>
