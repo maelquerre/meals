@@ -109,7 +109,7 @@ class ManageView extends React.Component {
     return (
       <>
         <div className="sticky top-0 flex flex-col py-4 mb-5 bg-white z-10">
-          <div className="w-11/12 max-w-6xl mx-auto md:hidden">
+          <div className="container md:hidden">
             <div className="relative py-2 text-green-400 cursor-pointer"
                  onClick={this.toggleNav}>
               {this.capitalize(this.state.currentDay)}
@@ -119,7 +119,7 @@ class ManageView extends React.Component {
               </div>
             </div>
           </div>
-          <nav className={`w-11/12 max-w-6xl mx-auto nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto ${this.state.navExpanded ? ' expand' : ''}`}>
+          <nav className={`container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto ${this.state.navExpanded ? ' expand' : ''}`}>
             {data.days.map((day, index) => {
               return (
                 <div key={index}
@@ -143,7 +143,7 @@ class ManageView extends React.Component {
         {data.meals.map((meal, index) => {
           return (
             <MealView key={index}
-                      className="w-11/12 max-w-6xl mx-auto mb-8"
+                      className="container mb-8"
                       name={meal.charAt(0).toUpperCase() + meal.slice(1)}
                       intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
                       addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}

@@ -35,7 +35,7 @@ class Meals {
               foodGroupId: portionsPreference.foodGroupId,
               portions: 1
             }
-          } while (this.isExcluded(portionsPreference.foodGroupId, meal) && this.hasReachedLimit(portionsPreference, day))
+          } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
 
           this.addIntake(newIntake)
         })
@@ -64,16 +64,23 @@ class Meals {
     }
   }
 
-  isExcluded(foodGroupId, meal) {
+  isExcluded({ meal, foodGroupId }) {
     return this.excludedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
   }
 
+  /**
+   * Returns true if a portions preference food group has reached limit for a given day.
+   *
+   * @param portionsPreference the portions preference to be tested
+   * @param day the day to be tested
+   * @returns {boolean} true if a portion preference has reached limit for a given day ; false otherwise
+   */
   hasReachedLimit(portionsPreference, day) {
     switch (portionsPreference.period) {
       case 'day':
-        return this.totalPortionsByDay(portionsPreference.foodGroupId, day) < portionsPreference.max
+        return this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
       case 'week':
-        return this.totalPortions(portionsPreference.foodGroupId) < portionsPreference.max
+        return this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.max
     }
   }
 

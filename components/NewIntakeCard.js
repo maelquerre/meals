@@ -26,7 +26,7 @@ class NewIntakeCard extends React.Component {
 
   render() {
     return (
-      <div className={`flex md:flex-col p-4 md:px-6 bg-gray-100 rounded-lg border border-dashed border-gray-400 ${this.props.className}`}>
+      <div className={`flex md:flex-col p-4 md:px-6 bg-gray-100 rounded-xl border border-dashed border-gray-400 ${this.props.className}`}>
         <img src={`/images/food/${this.state.foodId}.png`}
              className="w-1/6 md:w-1/2 mr-4 md:mx-auto md:mt-4 md:mb-8" />
 
