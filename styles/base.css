@@ -9,3 +9,14 @@ body {
 h1 {
   @apply text-5xl font-semibold tracking-tight leading-none
 }
+
+/* Nav */
+
+.nav {
+  height: 0;
+  overflow: hidden;
+
+  &.expand {
+    height: auto;
+  }
+}

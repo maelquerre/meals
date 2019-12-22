@@ -70,7 +70,7 @@ class NewIntakeCard extends React.Component {
                 })}>
           Add
         </button>
-        <button className="md:hidden"
+        <button className="md:hidden focus:outline-none"
                 onClick={() => this.props.addIntake({
                   foodGroupId: this.state.foodId,
                   portions: this.state.foodPortions

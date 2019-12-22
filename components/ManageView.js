@@ -3,6 +3,7 @@ import * as utils from '../api/meals/utils'
 import * as data from '../api/meals/data'
 import Meals from '../api/meals/Meals'
 import MealView from './MealView'
+import { ChevronDown, ChevronUp } from 'react-feather'
 
 class ManageView extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ManageView extends React.Component {
       intakes: [],
       portionsPreferences: data.recommendations,
       excludedPreferences: [{ meal: 'breakfast', foodGroupId: 7 }],
+      navExpanded: false,
       errors: []
     }
 
@@ -21,6 +23,9 @@ class ManageView extends React.Component {
     this.addIntake = this.addIntake.bind(this)
     this.removeIntake = this.removeIntake.bind(this)
     this.generateMeals = this.generateMeals.bind(this)
+
+    this.closeNav = this.closeNav.bind(this)
+    this.toggleNav = this.toggleNav.bind(this)
   }
 
   generateMeals() {
@@ -86,39 +91,66 @@ class ManageView extends React.Component {
     this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) })
   }
 
+  closeNav() {
+    if (this.state.navExpanded) {
+      this.setState({ navExpanded: !this.state.navExpanded })
+    }
+  }
+
+  toggleNav() {
+    this.setState({ navExpanded: !this.state.navExpanded })
+  }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
   render() {
     return (
-      <div className={this.props.className}>
-        <nav className="flex justify-center flex-wrap py-4 mb-5">
-          {data.days.map((day, index) => {
-            return (
-              <div key={index}
-                   onClick={() => this.updateCurrentDay(day)}
-                   className={'mr-2 py-2 px-4 bg-transparent rounded-full cursor-pointer'
-                   + (day === this.state.currentDay ? ' text-white bg-primary' : '')}>
-                {day.charAt(0).toUpperCase() + day.slice(1)}
+      <>
+        <div className="sticky top-0 flex flex-col py-4 mb-5 bg-white z-10">
+          <div className="w-11/12 max-w-6xl mx-auto md:hidden">
+            <div className="relative py-2 text-green-400 cursor-pointer"
+                 onClick={this.toggleNav}>
+              {this.capitalize(this.state.currentDay)}
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700">
+                {!this.state.navExpanded && <ChevronDown size={18} />}
+                {this.state.navExpanded && <ChevronUp size={18} />}
               </div>
-            )
-          })}
+            </div>
+          </div>
+          <nav className={`w-11/12 max-w-6xl mx-auto nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto ${this.state.navExpanded ? ' expand' : ''}`}>
+            {data.days.map((day, index) => {
+              return (
+                <div key={index}
+                     onClick={() => {
+                       this.updateCurrentDay(day)
+                       this.closeNav()
+                     }}
+                     className={'py-2 md:px-4 md:mr-2 bg-transparent md:hover:bg-gray-200 md:rounded-full cursor-pointer'
+                     + (day === this.state.currentDay ? ' hidden md:block text-white bg-green-400 md:hover:bg-green-400' : '')}>
+                  {this.capitalize(day)}
+                </div>
+              )
+            })}
+          </nav>
           <button onClick={this.generateMeals}
-                  className={'py-2 px-4 text-white bg-primary rounded-full'}>
+                  className={'hidden py-2 px-4 text-white bg-primary rounded-full'}>
             Generate
           </button>
-        </nav>
-
-        <div>
-          {data.meals.map((meal, index) => {
-            return (
-              <MealView key={index}
-                        className="mb-8"
-                        name={meal.charAt(0).toUpperCase() + meal.slice(1)}
-                        intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
-                        addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
-                        removeIntake={this.removeIntake} />
-            )
-          })}
         </div>
-      </div>
+
+        {data.meals.map((meal, index) => {
+          return (
+            <MealView key={index}
+                      className="w-11/12 max-w-6xl mx-auto mb-8"
+                      name={meal.charAt(0).toUpperCase() + meal.slice(1)}
+                      intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
+                      addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
+                      removeIntake={this.removeIntake} />
+          )
+        })}
+      </>
     )
   }
 }
