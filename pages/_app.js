@@ -12,7 +12,7 @@ class Layout extends React.Component {
     const { children } = this.props
     return (
       <>
-        <header className="flex items-center p-4 bg-gray-200">
+        <header className="flex items-center p-4 mb-4 bg-gray-200">
           <div className="w-1/4" />
 
           <h1 className="w-2/4 text-3xl text-center font-semibold tracking-tight leading-none">Meals</h1>

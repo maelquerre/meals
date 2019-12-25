@@ -22,26 +22,30 @@ class Meals {
    */
   createMeals(days, meals) {
     return new Promise((resolve, reject) => {
-      days.forEach(day => {
-        meals.forEach(meal => {
-          let portionsPreference
-          let newIntake
-          do {
-            portionsPreference = utils.randomItem(this.portionsPreferences)
+      try {
+        days.forEach(day => {
+          meals.forEach(meal => {
+            let portionsPreference
+            let newIntake
+            do {
+              // Get a random portions preference to fill the total intakes with
+              portionsPreference = utils.randomItem(this.portionsPreferences)
 
-            newIntake = {
-              day: day,
-              meal: meal,
-              foodGroupId: portionsPreference.foodGroupId,
-              portions: 1
-            }
-          } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
+              newIntake = {
+                day: day,
+                meal: meal,
+                foodGroupId: portionsPreference.foodGroupId,
+                portions: 1
+              }
+            } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
 
-          this.addIntake(newIntake)
+            this.addIntake(newIntake)
+          })
         })
-      })
-
-      resolve(this.intakes)
+        resolve(this.intakes)
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 

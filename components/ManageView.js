@@ -2,7 +2,7 @@ import React from 'react'
 import * as utils from '../api/meals/utils'
 import * as data from '../api/meals/data'
 import Meals from '../api/meals/Meals'
-import MealView from './MealView'
+import MealRow from './MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
 class ManageView extends React.Component {
@@ -13,7 +13,7 @@ class ManageView extends React.Component {
       currentDay: 'monday',
       intakes: [],
       portionsPreferences: data.recommendations,
-      excludedPreferences: [{ meal: 'breakfast', foodGroupId: 7 }],
+      excludedPreferences: [],
       navExpanded: false,
       errors: []
     }
@@ -108,7 +108,7 @@ class ManageView extends React.Component {
   render() {
     return (
       <>
-        <div className="sticky top-0 flex flex-col py-4 mb-5 bg-white z-10">
+        <div className="sticky top-0 flex flex-col mb-10 bg-white z-10">
           <div className="container md:hidden">
             <div className="relative py-2 text-primary cursor-pointer"
                  onClick={this.toggleNav}>
@@ -142,12 +142,12 @@ class ManageView extends React.Component {
 
         {data.meals.map((meal, index) => {
           return (
-            <MealView key={index}
-                      className="container mb-8"
-                      name={meal.charAt(0).toUpperCase() + meal.slice(1)}
-                      intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
-                      addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
-                      removeIntake={this.removeIntake} />
+            <MealRow key={index}
+                     className="container mb-8"
+                     name={meal.charAt(0).toUpperCase() + meal.slice(1)}
+                     intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
+                     addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
+                     removeIntake={this.removeIntake} />
           )
         })}
       </>

@@ -3,7 +3,7 @@ import { foodGroups, meals } from '../api/meals/data'
 import IntakeCard from './IntakeCard'
 import NewIntakeCard from './NewIntakeCard'
 
-class MealView extends React.Component {
+class MealRow extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -12,7 +12,7 @@ class MealView extends React.Component {
     return (
       <div className={this.props.className}>
         <div className="mb-4">
-          <h2 className="md:text-xl font-semibold uppercase tracking-wide">{this.props.name}</h2>
+          <h2 className="headline">{this.props.name}</h2>
         </div>
 
         <div className="grid columns-4 gap-4">
@@ -34,4 +34,4 @@ class MealView extends React.Component {
   }
 }
 
-export default MealView
+export default MealRow
