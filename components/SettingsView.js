@@ -7,7 +7,7 @@ class SettingsView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         Settings
       </div>
     )

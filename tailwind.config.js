@@ -14,7 +14,8 @@ module.exports = {
         'xl': '1rem'
       },
       colors: {
-        'primary': colors.green[400]
+        'primary': colors.green[400],
+        'primary-var': colors.green[500]
       },
       fontSize: {
         'sm': '.8125rem'

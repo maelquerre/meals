@@ -110,7 +110,7 @@ class ManageView extends React.Component {
       <>
         <div className="sticky top-0 flex flex-col py-4 mb-5 bg-white z-10">
           <div className="container md:hidden">
-            <div className="relative py-2 text-green-400 cursor-pointer"
+            <div className="relative py-2 text-primary cursor-pointer"
                  onClick={this.toggleNav}>
               {this.capitalize(this.state.currentDay)}
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-700">
@@ -128,7 +128,7 @@ class ManageView extends React.Component {
                        this.closeNav()
                      }}
                      className={'py-2 md:px-4 md:mr-2 bg-transparent md:hover:bg-gray-200 md:rounded-full cursor-pointer'
-                     + (day === this.state.currentDay ? ' hidden md:block text-white bg-green-400 md:hover:bg-green-400' : '')}>
+                     + (day === this.state.currentDay ? ' hidden md:block text-white bg-primary md:hover:bg-primary-var' : '')}>
                   {this.capitalize(day)}
                 </div>
               )

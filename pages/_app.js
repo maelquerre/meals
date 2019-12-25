@@ -12,14 +12,14 @@ class Layout extends React.Component {
     const { children } = this.props
     return (
       <>
-        <header className="flex items-center py-4 bg-gray-200">
+        <header className="flex items-center p-4 bg-gray-200">
           <div className="w-1/4" />
 
           <h1 className="w-2/4 text-3xl text-center font-semibold tracking-tight leading-none">Meals</h1>
 
-          <div className="w-1/4">
+          <div className="w-1/4 flex justify-end md:justify-center">
             <Link href="/settings">
-              <a className="ml-auto"><Settings /></a>
+              <a><Settings /></a>
             </Link>
           </div>
         </header>
