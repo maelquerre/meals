@@ -51,7 +51,7 @@ class NewIntakeCard extends React.Component {
               <Minus className="m-auto" size={16} />
             </button>
 
-            <span className="flex items-center justify-center text-center w-full bg-white text-gray-700">
+            <span className="flex items-center justify-center md:px-1 w-full text-center bg-white text-gray-700">
                 {this.state.foodPortions}&nbsp;{this.state.foodPortions > 1 ? 'portions' : 'portion'}
             </span>
 

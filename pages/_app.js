@@ -3,6 +3,8 @@ import App from 'next/app'
 import Head from 'next/head'
 
 import '../styles/index.css'
+import Link from 'next/link'
+import { Settings } from 'react-feather'
 
 
 class Layout extends React.Component {
@@ -10,8 +12,16 @@ class Layout extends React.Component {
     const { children } = this.props
     return (
       <>
-        <header className="py-4 bg-gray-200">
-          <h1 className="w-11/12 max-w-6xl m-auto text-center">Meals</h1>
+        <header className="flex items-center py-4 bg-gray-200">
+          <div className="w-1/4" />
+
+          <h1 className="w-2/4 text-3xl text-center font-semibold tracking-tight leading-none">Meals</h1>
+
+          <div className="w-1/4">
+            <Link href="/settings">
+              <a className="ml-auto"><Settings /></a>
+            </Link>
+          </div>
         </header>
 
         <main>

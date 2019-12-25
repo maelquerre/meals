@@ -12,7 +12,7 @@ class MealView extends React.Component {
     return (
       <div className={this.props.className}>
         <div className="mb-4">
-          <h2 className="text-xl font-medium uppercase tracking-wide">{this.props.name}</h2>
+          <h2 className="md:text-xl font-medium uppercase tracking-wide">{this.props.name}</h2>
         </div>
 
         <div className="grid columns-4 gap-4">
