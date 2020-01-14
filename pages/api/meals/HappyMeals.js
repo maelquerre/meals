@@ -1,6 +1,4 @@
-import * as utils from './utils'
-
-class Meals {
+class HappyMeals {
   /**
    *
    * @param initialIntakes
@@ -114,9 +112,17 @@ class Meals {
     return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
   }
 
+  intakeEquals(intake, { day, meal, foodGroupId }) {
+    return intake.day === day && intake.meal === meal && intake.foodGroupId == foodGroupId
+  }
+
+  randomItem(array) {
+    return array[Math.floor((Math.random() * array.length))]
+  }
+
   getIntakes() {
     return this.intakes
   }
 }
 
-export default Meals
+export default HappyMeals

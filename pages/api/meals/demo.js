@@ -1,4 +1,4 @@
-import Meals from './Meals'
+import HappyMeals from './HappyMeals'
 
 const weekIntake = {
   monday: {
@@ -27,5 +27,5 @@ const weekIntake = {
   }
 }
 
-const meals = new Meals(weekIntake)
+const meals = new HappyMeals(weekIntake)
 console.log(meals.createMeals())

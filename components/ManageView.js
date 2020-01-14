@@ -1,7 +1,7 @@
 import React from 'react'
 import * as utils from '../pages/api/meals/utils'
 import * as data from '../pages/api/meals/data'
-import Meals from '../pages/api/meals/Meals'
+import HappyMeals from '../pages/api/meals/HappyMeals'
 import MealRow from './MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -29,7 +29,7 @@ class ManageView extends React.Component {
   }
 
   generateMeals() {
-    const meals = new Meals(this.state.intakes, this.state.portionsPreferences, this.state.excludedPreferences)
+    const meals = new HappyMeals(this.state.intakes, this.state.portionsPreferences, this.state.excludedPreferences)
     meals.createMeals(data.days, data.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
