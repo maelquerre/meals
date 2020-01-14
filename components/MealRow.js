@@ -1,37 +1,31 @@
 import React from 'react'
-import { foodGroups, meals } from '../api/meals/data'
 import IntakeCard from './IntakeCard'
 import NewIntakeCard from './NewIntakeCard'
 
-class MealRow extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div className={this.props.className}>
-        <div className="mb-4">
-          <h2 className="headline">{this.props.name}</h2>
-        </div>
-
-        <div className="grid columns-4 gap-4">
-          {this.props.intakes.length > 0 && this.props.intakes.map((intake, index) => {
-            return (
-              <IntakeCard key={index}
-                          id={intake.foodGroupId}
-                          className="spanx-row md:spanx-1"
-                          name={foodGroups.find(foodGroup => foodGroup.id == intake.foodGroupId).name}
-                          portions={intake.portions}
-                          removeIntake={() => this.props.removeIntake(intake)} />
-            )
-          })}
-          <NewIntakeCard className="spanx-row md:spanx-1"
-                         addIntake={this.props.addIntake} />
-        </div>
+function MealRow(props) {
+  return (
+    <div className={props.className}>
+      <div className="mb-4">
+        <h2 className="headline">{props.name}</h2>
       </div>
-    )
-  }
+
+      <div className="grid columns-4 gap-4">
+        {props.intakes.length > 0 && props.intakes.map((intake, index) => {
+          return (
+            <IntakeCard key={index}
+                        id={intake.foodGroupId}
+                        className="spanx-row md:spanx-1"
+                        name={props.foodGroups.find(foodGroup => foodGroup.id == intake.foodGroupId).name}
+                        portions={intake.portions}
+                        removeIntake={() => props.removeIntake(intake)} />
+          )
+        })}
+        <NewIntakeCard className="spanx-row md:spanx-1"
+                       foodGroups={props.foodGroups}
+                       addIntake={props.addIntake} />
+      </div>
+    </div>
+  )
 }
 
 export default MealRow

@@ -23,25 +23,41 @@ class Meals {
   createMeals(days, meals) {
     return new Promise((resolve, reject) => {
       try {
-        days.forEach(day => {
-          meals.forEach(meal => {
-            let portionsPreference
-            let newIntake
-            do {
-              // Get a random portions preference to fill the total intakes with
-              portionsPreference = utils.randomItem(this.portionsPreferences)
+        this.portionsPreferences.forEach(preference => {
+          let day, meal, newIntake
+          do {
+            // Get a random portions preference to fill the total intakes with
+            day = utils.randomItem(days)
+            meal = utils.randomItem(meals)
 
-              newIntake = {
-                day: day,
-                meal: meal,
-                foodGroupId: portionsPreference.foodGroupId,
-                portions: 1
-              }
-            } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
+            newIntake = {
+              day: day,
+              meal: meal,
+              foodGroupId: preference.foodGroupId,
+              portions: 1
+            }
+          } while (this.isExcluded(newIntake) && this.hasReachedLimit(preference, day))
 
-            this.addIntake(newIntake)
-          })
         })
+        // days.forEach(day => {
+        //   meals.forEach(meal => {
+        //     let portionsPreference
+        //     let newIntake
+        //     do {
+        //       // Get a random portions preference to fill the total intakes with
+        //       portionsPreference = utils.randomItem(this.portionsPreferences)
+        //
+        //       newIntake = {
+        //         day: day,
+        //         meal: meal,
+        //         foodGroupId: portionsPreference.foodGroupId,
+        //         portions: 1
+        //       }
+        //     } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
+        //
+        //     this.addIntake(newIntake)
+        //   })
+        // })
         resolve(this.intakes)
       } catch (error) {
         reject(error)

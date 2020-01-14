@@ -1,7 +1,7 @@
 import React from 'react'
-import * as utils from '../api/meals/utils'
-import * as data from '../api/meals/data'
-import Meals from '../api/meals/Meals'
+import * as utils from '../pages/api/meals/utils'
+import * as data from '../pages/api/meals/data'
+import Meals from '../pages/api/meals/Meals'
 import MealRow from './MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -145,6 +145,7 @@ class ManageView extends React.Component {
             <MealRow key={index}
                      className="container mb-8"
                      name={meal.charAt(0).toUpperCase() + meal.slice(1)}
+                     foodGroups={this.props.foodGroups}
                      intakes={this.state.intakes.filter(intake => intake.day === this.state.currentDay && intake.meal === meal)}
                      addIntake={intake => this.addIntake({ day: this.state.currentDay, meal: meal, ...intake })}
                      removeIntake={this.removeIntake} />

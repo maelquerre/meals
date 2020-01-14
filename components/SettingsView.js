@@ -1,5 +1,5 @@
 import React from 'react'
-import { foodGroups } from '../api/meals/data'
+import { foodGroups } from '../pages/api/meals/data'
 import PortionsPreferenceCard from './PortionsPreferenceCard'
 import { ChevronRight, ChevronDown } from 'react-feather'
 

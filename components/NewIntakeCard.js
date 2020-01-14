@@ -1,6 +1,5 @@
 import React from 'react'
 import { ChevronDown, Minus, Plus, PlusCircle } from 'react-feather'
-import { foodGroups } from '../api/meals/data'
 
 class NewIntakeCard extends React.Component {
   constructor(props) {
@@ -35,7 +34,7 @@ class NewIntakeCard extends React.Component {
             <select className="select"
                     value={this.state.foodId}
                     onChange={this.updateSelection}>
-              {foodGroups.map((foodGroup, index) => {
+              {this.props.foodGroups.map((foodGroup, index) => {
                 return <option key={index} value={foodGroup.id}>{foodGroup.name}</option>
               })}
             </select>
