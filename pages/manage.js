@@ -5,7 +5,7 @@ function Manage(props) {
   return <ManageView foodGroups={props.foodGroups} />
 }
 
-Manage.getInitialProps = async ({ request }) => {
+Manage.getInitialProps = async () => {
   const response = await fetch('http://localhost:3000/api/meals/foods')
   const foodGroups = await response.json()
 
