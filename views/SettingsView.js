@@ -7,11 +7,13 @@ class SettingsView extends React.Component {
   constructor(props) {
     super(props)
 
+    this.foodGroups = foodGroups
+
     this.state = {
       portionsPreferences: [],
       includedPreferences: [],
-      portionsPreferencesExpanded: false,
-      includedPreferencesExpanded: false
+      expandPortionsPreferences: false,
+      expandIncludedPreferences: false
     }
   }
 
@@ -33,19 +35,19 @@ class SettingsView extends React.Component {
     return (
       <div className="container">
         <div className="mb-4 bg-gray-200 rounded-lg md:rounded-xl">
-          <div onClick={() => this.setState({ portionsPreferencesExpanded: !this.state.portionsPreferencesExpanded })}
+          <div onClick={() => this.setState({ expandPortionsPreferences: !this.state.expandPortionsPreferences })}
                className="flex justify-between p-4 cursor-pointer">
             <h2 className="headline">Food portions preferences</h2>
             <div className="pointer-events-none flex items-center text-gray-700">
-              {!this.state.portionsPreferencesExpanded && <ChevronRight size={18} />}
-              {this.state.portionsPreferencesExpanded && <ChevronDown size={18} />}
+              {!this.state.expandPortionsPreferences && <ChevronRight size={18} />}
+              {this.state.expandPortionsPreferences && <ChevronDown size={18} />}
             </div>
           </div>
 
           <div className={"grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden"
-          + (this.state.portionsPreferencesExpanded ? ' h-auto p-4 pt-8' : ' h-0 p-0')}>
+          + (this.state.expandPortionsPreferences ? ' h-auto p-4 pt-8' : ' h-0 p-0')}>
             {this.state.portionsPreferences.map((portionsPreference, index) => {
-              const foodGroup = foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
+              const foodGroup = this.foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
               return (
                 <PortionsPreferenceCard key={index}
                                         id={foodGroup.id}
@@ -59,13 +61,21 @@ class SettingsView extends React.Component {
         </div>
 
         <div className="bg-gray-200 rounded-lg md:rounded-xl">
-          <div onClick={() => this.setState({ includedPreferencesExpanded: !this.state.includedPreferencesExpanded })}
+          <div onClick={() => this.setState({ expandIncludedPreferences: !this.state.expandIncludedPreferences })}
                className="flex justify-between p-4 cursor-pointer">
             <h2 className="headline">Included food preferences</h2>
             <div className="pointer-events-none flex items-center text-gray-700">
-              {!this.state.includedPreferencesExpanded && <ChevronRight size={18} />}
-              {this.state.includedPreferencesExpanded && <ChevronDown size={18} />}
+              {!this.state.expandIncludedPreferences && <ChevronRight size={18} />}
+              {this.state.expandIncludedPreferences && <ChevronDown size={18} />}
             </div>
+          </div>
+
+          <div className={"grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden"
+          + (this.state.expandIncludedPreferences ? ' h-auto p-4 pt-8' : ' h-0 p-0')}>
+            {this.state.includedPreferences.map((portionsPreference, index) => {
+              const foodGroup = this.foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
+
+            })}
           </div>
         </div>
       </div>

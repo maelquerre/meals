@@ -25,9 +25,8 @@ class HappyMeals {
         this.portionsPreferences.forEach(preference => {
           let day, meal, newIntake
           do {
-            // Get a random portions preference to fill the total intakes with
-            day = utils.randomItem(days)
-            meal = utils.randomItem(meals)
+            day = this.randomItem(days)
+            meal = this.randomItem(meals)
 
             newIntake = {
               day: day,
@@ -35,28 +34,11 @@ class HappyMeals {
               foodGroupId: preference.foodGroupId,
               portions: 1
             }
-          } while (this.isIncluded(newIntake) && this.hasReachedLimit(preference, day))
+          } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
 
+          console.log('addIntake')
+          this.addIntake(newIntake)
         })
-        // days.forEach(day => {
-        //   meals.forEach(meal => {
-        //     let portionsPreference
-        //     let newIntake
-        //     do {
-        //       // Get a random portions preference to fill the total intakes with
-        //       portionsPreference = utils.randomItem(this.portionsPreferences)
-        //
-        //       newIntake = {
-        //         day: day,
-        //         meal: meal,
-        //         foodGroupId: portionsPreference.foodGroupId,
-        //         portions: 1
-        //       }
-        //     } while (this.isIncluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
-        //
-        //     this.addIntake(newIntake)
-        //   })
-        // })
         resolve(this.intakes)
       } catch (error) {
         reject(error)
@@ -64,9 +46,14 @@ class HappyMeals {
     })
   }
 
+  /**
+   * Adds an intake to this intakes array.
+   *
+   * @param newIntake the new intake to be added to this intakes array
+   */
   addIntake(newIntake) {
     // Check if the intake to add already exists
-    const index = this.intakes.findIndex(intake => utils.intakeEquals(intake, newIntake))
+    const index = this.intakes.findIndex(intake => this.intakeEquals(intake, newIntake))
 
     // If the intake already exists
     if (index > -1) {
@@ -83,6 +70,13 @@ class HappyMeals {
     }
   }
 
+  /**
+   * Returns true if a food group is included in the included preferences
+   *
+   * @param meal the meal of the food group to be tested
+   * @param foodGroupId the ID of the food group to be tested
+   * @returns {boolean} true if a food group is included in the included preferences ; false otherwise
+   */
   isIncluded({ meal, foodGroupId }) {
     return this.includedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
   }
@@ -95,12 +89,28 @@ class HappyMeals {
    * @returns {boolean} true if a portion preference has reached limit for a given day ; false otherwise
    */
   hasReachedLimit(portionsPreference, day) {
+    let hasReachedLimit = false
+
     switch (portionsPreference.period) {
       case 'day':
-        return this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
+        if (portionsPreference.min) {
+          hasReachedLimit = hasReachedLimit && this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.min
+        }
+        if (portionsPreference.max) {
+          hasReachedLimit = hasReachedLimit && this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
+        }
+        break
       case 'week':
-        return this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.max
+        if (portionsPreference.min) {
+          hasReachedLimit = hasReachedLimit && this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.min
+        }
+        if (portionsPreference.max) {
+          hasReachedLimit = hasReachedLimit && this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.max
+        }
+        break
     }
+
+    return hasReachedLimit
   }
 
   /**

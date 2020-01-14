@@ -58,3 +58,21 @@ intakes: [
   }
 ]
 ```
+
+### Included preferences
+
+Foods inclusion preferences (`includedPreferences`) are foods that are preferred to eat at specific meals.
+
+Example:
+```
+includedPreferences: [
+  {
+    meal: 'breakfast',
+    foodGroupId: 1
+  },
+  {
+    meal: 'lunch',
+    foodGroupId: 7
+  }
+]
+```

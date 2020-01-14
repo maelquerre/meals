@@ -4,10 +4,14 @@ import * as data from '../pages/api/meals/data'
 import HappyMeals from '../pages/api/meals/HappyMeals'
 import MealRow from '../components/MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
+import useSWR from 'swr'
 
 class ManageView extends React.Component {
   constructor(props) {
     super(props)
+
+    this.days = data.days
+    this.meals = data.meals
 
     this.state = {
       currentDay: 'monday',
@@ -30,7 +34,7 @@ class ManageView extends React.Component {
 
   generateMeals() {
     const meals = new HappyMeals(this.state.intakes, this.state.portionsPreferences, this.state.includedPreferences)
-    meals.createMeals(data.days, data.meals).then(intakes => {
+    meals.createMeals(this.days, this.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
       this.setState({ errors: [...this.state.errors].push(error) })
@@ -82,13 +86,19 @@ class ManageView extends React.Component {
     }
   }
 
-  componentDidMount() {
-    /* Init the localStorage intakes if it doesn't already exist and link it with the state */
-    if (!localStorage.getItem('intakes')) {
-      localStorage.setItem('intakes', JSON.stringify(this.state.intakes))
+  setFromStorage(item) {
+    if (!localStorage.getItem(item)) {
+      localStorage.setItem(item, JSON.stringify(this.state[item]))
+    } else {
+      this.setState({ [item]: JSON.parse(localStorage.getItem(item)) })
     }
+  }
 
-    this.setState({ intakes: JSON.parse(localStorage.getItem('intakes')) })
+  componentDidMount() {
+    /* Init the localStorage if it doesn't already exist and link it with the state */
+    this.setFromStorage('intakes')
+    this.setFromStorage('portionsPreferences')
+    this.setFromStorage('includedPreferences')
   }
 
   closeNav() {
@@ -119,8 +129,9 @@ class ManageView extends React.Component {
               </div>
             </div>
           </div>
+
           <nav className={`container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto ${this.state.navExpanded ? ' expand' : ''}`}>
-            {data.days.map((day, index) => {
+            {this.days.map((day, index) => {
               return (
                 <div key={index}
                      onClick={() => {
@@ -134,13 +145,14 @@ class ManageView extends React.Component {
               )
             })}
           </nav>
+
           <button onClick={this.generateMeals}
-                  className={'hidden py-2 px-4 text-white bg-primary rounded-full'}>
+                  className={'py-2 px-4 text-white bg-primary rounded-full'}>
             Generate
           </button>
         </div>
 
-        {data.meals.map((meal, index) => {
+        {this.meals.map((meal, index) => {
           return (
             <MealRow key={index}
                      className="container mb-8"
