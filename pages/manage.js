@@ -1,15 +1,25 @@
-import fetch from 'isomorphic-unfetch'
+import useSWR from 'swr'
 import ManageView from '../components/ManageView'
 
-function Manage(props) {
-  return <ManageView foodGroups={props.foodGroups} />
+function fetcher(url) {
+  return fetch(url).then(response => response.json())
 }
 
-Manage.getInitialProps = async () => {
-  const response = await fetch('http://localhost:3000/api/meals/foods')
-  const foodGroups = await response.json()
+function Manage(props) {
+  const { data, error } = useSWR('/api/meals/foods', fetcher)
 
-  return { foodGroups }
+  let message
+  if (!data) message = 'Loading...'
+  if (error) message = 'Failed to fetch food groups'
+
+  console.log(data)
+
+  return (
+    <div>
+      {message}
+      {data && <ManageView foodGroups={data} />}
+    </div>
+  )
 }
 
 export default Manage
