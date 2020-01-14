@@ -48,7 +48,6 @@ A static version of your app will be built in the `out` directory.
 The intakes are contained in an array of 'intake' objects. Each intake object is defined for a specific day and meal, with corresponding foodGroup ID and portions.
 
 Example:
-
 ```
 intakes: [
   {
