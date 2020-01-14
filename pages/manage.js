@@ -6,7 +6,7 @@ function fetcher(url) {
   return fetch(url).then(response => response.json())
 }
 
-function Manage(props) {
+function Manage() {
   const { data, error } = useSWR('/api/meals/foods', fetcher)
 
   return (

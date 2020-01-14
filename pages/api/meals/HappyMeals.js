@@ -1,14 +1,15 @@
 class HappyMeals {
   /**
+   * Constructor.
    *
    * @param initialIntakes
    * @param portionsPreferences An array
-   * @param excludedPreferences An array containing objects of meals associated with excluded food groups ids.
+   * @param includedPreferences An array containing objects of meals associated with included food groups ids.
    */
-  constructor(initialIntakes = [], portionsPreferences = [], excludedPreferences = []) {
+  constructor(initialIntakes = [], portionsPreferences = [], includedPreferences = []) {
     this.intakes = initialIntakes
     this.portionsPreferences = portionsPreferences
-    this.excludedPreferences = excludedPreferences
+    this.includedPreferences = includedPreferences
   }
 
   /**
@@ -34,7 +35,7 @@ class HappyMeals {
               foodGroupId: preference.foodGroupId,
               portions: 1
             }
-          } while (this.isExcluded(newIntake) && this.hasReachedLimit(preference, day))
+          } while (this.isIncluded(newIntake) && this.hasReachedLimit(preference, day))
 
         })
         // days.forEach(day => {
@@ -51,7 +52,7 @@ class HappyMeals {
         //         foodGroupId: portionsPreference.foodGroupId,
         //         portions: 1
         //       }
-        //     } while (this.isExcluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
+        //     } while (this.isIncluded(newIntake) && this.hasReachedLimit(portionsPreference, day))
         //
         //     this.addIntake(newIntake)
         //   })
@@ -82,8 +83,8 @@ class HappyMeals {
     }
   }
 
-  isExcluded({ meal, foodGroupId }) {
-    return this.excludedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
+  isIncluded({ meal, foodGroupId }) {
+    return this.includedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
   }
 
   /**
@@ -102,20 +103,48 @@ class HappyMeals {
     }
   }
 
+  /**
+   * Returns the total of the portions for a given food group ID in a given day.
+   *
+   * @param foodGroupId the food group ID to get the total from
+   * @param day the day to get the total from
+   * @returns {int} the total of the portions for the given food group ID in he given day
+   */
   totalPortionsByDay(foodGroupId, day) {
     const intakes = this.intakes.filter(intake => intake.day === day && intake.foodGroupId == foodGroupId)
     return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
   }
 
+  /**
+   * Returns the total of the portions for a given food group ID in the week.
+   *
+   * @param foodGroupId the food group ID to get the total from
+   * @returns {int} the total of the portions in the week for the given food group ID
+   */
   totalPortions(foodGroupId) {
     const intakes = this.intakes.filter(intake => intake.foodGroupId == foodGroupId)
     return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
   }
 
+  /**
+   * Returns true if two given intakes are the same.
+   *
+   * @param intake the first intake to be tested
+   * @param day the day of the second intake to be tested
+   * @param meal the meal of the second intake to be tested
+   * @param foodGroupId the food group ID of the second intake to be tested
+   * @returns {boolean} true if the two intakes are the same ; false otherwise
+   */
   intakeEquals(intake, { day, meal, foodGroupId }) {
     return intake.day === day && intake.meal === meal && intake.foodGroupId == foodGroupId
   }
 
+  /**
+   * Returns a random item from a given array
+   *
+   * @param array the given array
+   * @returns {*} a random item from the given array
+   */
   randomItem(array) {
     return array[Math.floor((Math.random() * array.length))]
   }

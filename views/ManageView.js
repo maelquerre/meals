@@ -13,7 +13,7 @@ class ManageView extends React.Component {
       currentDay: 'monday',
       intakes: [],
       portionsPreferences: data.recommendations,
-      excludedPreferences: [],
+      includedPreferences: [],
       navExpanded: false,
       errors: []
     }
@@ -29,7 +29,7 @@ class ManageView extends React.Component {
   }
 
   generateMeals() {
-    const meals = new HappyMeals(this.state.intakes, this.state.portionsPreferences, this.state.excludedPreferences)
+    const meals = new HappyMeals(this.state.intakes, this.state.portionsPreferences, this.state.includedPreferences)
     meals.createMeals(data.days, data.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
