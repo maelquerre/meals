@@ -59,11 +59,3 @@ intakes: [
   }
 ]
 ```
-
-## Static HTML export
-
-To generate a static HTML site, simply run:
-
-```
-npm run export
-```
