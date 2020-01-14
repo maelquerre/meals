@@ -1,5 +1,6 @@
 import useSWR from 'swr'
-import ManageView from '../components/ManageView'
+import ManageView from '../views/ManageView'
+import LoadingView from '../views/LoadingView'
 
 function fetcher(url) {
   return fetch(url).then(response => response.json())
@@ -8,17 +9,11 @@ function fetcher(url) {
 function Manage(props) {
   const { data, error } = useSWR('/api/meals/foods', fetcher)
 
-  let message
-  if (!data) message = 'Loading...'
-  if (error) message = 'Failed to fetch food groups'
-
-  console.log(data)
-
   return (
-    <div>
-      {message}
+    <>
+      {!data && <LoadingView className="container" />}
       {data && <ManageView foodGroups={data} />}
-    </div>
+    </>
   )
 }
 

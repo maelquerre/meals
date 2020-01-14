@@ -2,7 +2,7 @@ import React from 'react'
 import * as utils from '../pages/api/meals/utils'
 import * as data from '../pages/api/meals/data'
 import HappyMeals from '../pages/api/meals/HappyMeals'
-import MealRow from './MealRow'
+import MealRow from '../components/MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
 class ManageView extends React.Component {

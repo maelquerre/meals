@@ -1,6 +1,6 @@
 import React from 'react'
 import { foodGroups } from '../pages/api/meals/data'
-import PortionsPreferenceCard from './PortionsPreferenceCard'
+import PortionsPreferenceCard from '../components/PortionsPreferenceCard'
 import { ChevronRight, ChevronDown } from 'react-feather'
 
 class SettingsView extends React.Component {
