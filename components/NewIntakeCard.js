@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronDown, Minus, Plus, PlusCircle } from 'react-feather'
+import { ChevronDown, Minus, Plus } from 'react-feather'
 
 class NewIntakeCard extends React.Component {
   constructor(props) {
@@ -25,11 +25,11 @@ class NewIntakeCard extends React.Component {
 
   render() {
     return (
-      <div className={`flex md:flex-col p-4 md:px-6 bg-gray-100 rounded-xl border border-dashed border-gray-400 ${this.props.className}`}>
+      <div className={`flex md:flex-col p-3 md:p-4 bg-gray-100 rounded-xl border border-dashed border-gray-400 ${this.props.className}`}>
         <img src={`/images/food/${this.state.foodId}.png`}
              className="self-center w-1/6 md:w-1/2 mr-4 md:mr-0 md:mt-4 md:mb-8" />
 
-        <div className="flex flex-col mr-3 md:mr-0">
+        <div className="flex flex-col flex-grow mr-3 md:mr-0">
           <div className="relative md:mb-4 h-10">
             <select className="select"
                     value={this.state.foodId}
@@ -69,12 +69,12 @@ class NewIntakeCard extends React.Component {
                 })}>
           Add
         </button>
-        <button className="md:hidden self-center focus:outline-none"
+        <button className="md:hidden self-center p-1 text-white bg-primary rounded-full focus:outline-none"
                 onClick={() => this.props.addIntake({
                   foodGroupId: this.state.foodId,
                   portions: this.state.foodPortions
                 })}>
-          <PlusCircle size={24} />
+          <Plus size={18} />
         </button>
       </div>
     )
