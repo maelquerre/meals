@@ -39,7 +39,7 @@ Build and export the app to static HTML, which can be run standalone without the
 npm run export
 ```
 
-A static version of your app will be built in the `out` directory.
+A static version of the app will be built in the `out` directory.
 
 ## Data structure
 
