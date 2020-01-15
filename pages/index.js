@@ -5,12 +5,19 @@ import HomeView from '../views/HomeView'
 import LoadingView from '../views/LoadingView'
 
 function Index() {
-  const { data, error } = useSWR('/api/meals/foods', fetcher)
+  let response
+
+  response = useSWR('/api/meals/foods', fetcher)
+  const foods = response.data
+
+  response = useSWR('/api/meals/recommendations', fetcher)
+  const portionsPreferences = response.data
 
   return (
     <>
-      {!data && <LoadingView className="container" />}
-      {data && <HomeView foodGroups={data} />}
+      {!(foods && portionsPreferences) && <LoadingView className="container" />}
+      {foods && portionsPreferences && <HomeView foodGroups={foods}
+                                                 portionsPreferences={portionsPreferences} />}
     </>
   )
 }

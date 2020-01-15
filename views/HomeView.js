@@ -18,7 +18,7 @@ class HomeView extends React.Component {
     this.state = {
       currentDay: 'monday',
       intakes: [],
-      portionsPreferences: data.recommendations,
+      portionsPreferences: props.portionsPreferences,
       includedPreferences: [],
       navExpanded: false,
       errors: []
