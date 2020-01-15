@@ -1,6 +1,6 @@
 import React from 'react'
-import IntakeCard from './IntakeCard'
-import NewIntakeCard from './NewIntakeCard'
+import IntakeCard from './cards/IntakeCard'
+import NewIntakeCard from './cards/NewIntakeCard'
 
 function MealRow(props) {
   return (

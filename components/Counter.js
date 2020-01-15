@@ -3,10 +3,10 @@ import { Minus, Plus } from 'react-feather'
 
 function Counter(props) {
   return (
-    <div className={`relative flex-shrink-0 flex mt-1 md:mb-6 rounded overflow-hidden ${props.className}`}>
+    <div className={`relative flex-shrink-0 flex mt-1 md:mb-6 rounded-lg overflow-hidden ${props.className}`}>
       <button onClick={props.decrement}
               onMouseDown={event => event.preventDefault()}
-              className="h-full px-2 text-gray-700 md:hover:bg-gray-200 rounded-l cursor-pointer">
+              className="h-full px-2 text-gray-700 md:hover:bg-gray-200 rounded-l-lg cursor-pointer">
         <Minus className="m-auto" size={16} />
       </button>
 
@@ -16,7 +16,7 @@ function Counter(props) {
 
       <button onClick={props.increment}
               onMouseDown={event => event.preventDefault()}
-              className="h-full px-2 text-gray-700 md:hover:bg-gray-200 rounded-r cursor-pointer">
+              className="h-full px-2 text-gray-700 md:hover:bg-gray-200 rounded-r-lg cursor-pointer">
         <Plus className="m-auto" size={16} />
       </button>
     </div>

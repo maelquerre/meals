@@ -46,7 +46,7 @@ class NewIntakeCard extends React.Component {
           <div className="relative flex-shrink-0 flex h-8 mt-1 md:mb-6">
             <button onClick={() => this.updateFoodPortion(-1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-l cursor-pointer">
+                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-l-lg cursor-pointer">
               <Minus className="m-auto" size={16} />
             </button>
 
@@ -56,7 +56,7 @@ class NewIntakeCard extends React.Component {
 
             <button onClick={() => this.updateFoodPortion(1)}
                     onMouseDown={event => event.preventDefault()}
-                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-r cursor-pointer">
+                    className="h-full px-2 text-gray-700 bg-white md:hover:bg-gray-200 rounded-r-lg cursor-pointer">
               <Plus className="m-auto" size={16} />
             </button>
           </div>
