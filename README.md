@@ -1,4 +1,4 @@
-# HappyMeals
+# Meals
 
 ## Getting started
 

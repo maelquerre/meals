@@ -4,7 +4,7 @@ import days from '../data/days'
 import meals from '../data/meals'
 import { intakeEquals } from '../utils'
 
-import HappyMeals from '../model/HappyMeals'
+import Meals from '../model/Meals'
 import MealRow from '../components/MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
@@ -35,8 +35,8 @@ class HomeView extends React.Component {
   }
 
   generateMeals() {
-    const meals = new HappyMeals(this.state.intakes, this.state.portionsPreferences, this.state.includedPreferences)
-    meals.createMeals(this.days, this.meals).then(intakes => {
+    const meals = new Meals(this.state.intakes, this.state.portionsPreferences, this.state.includedPreferences)
+    meals.generate(this.days, this.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
       this.setState({ errors: [...this.state.errors].push(error) })

@@ -1,4 +1,4 @@
-class HappyMeals {
+class Meals {
   /**
    * Constructor.
    *
@@ -19,11 +19,14 @@ class HappyMeals {
    * @param meals
    * @returns {*}
    */
-  createMeals(days, meals) {
+  generate(days, meals) {
     return new Promise((resolve, reject) => {
       try {
+        // For each portion preference
         this.portionsPreferences.forEach(preference => {
           let day, meal, newIntake
+
+          // Test if it can be added to a random day and meal
           do {
             day = this.randomItem(days)
             meal = this.randomItem(meals)
@@ -34,6 +37,10 @@ class HappyMeals {
               foodGroupId: preference.foodGroupId,
               portions: 1
             }
+
+            // Pick another day and meal if the new intake is either not
+            // included for the current meal or the limit has been reached for
+            // the preference
           } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
 
           console.log('addIntake')
@@ -78,7 +85,7 @@ class HappyMeals {
    * @returns {boolean} true if a food group is included in the included preferences ; false otherwise
    */
   isIncluded({ meal, foodGroupId }) {
-    return this.includedPreferences.findIndex(exclusion => exclusion.foodGroupId == foodGroupId && exclusion.meal === meal) > -1
+    return this.includedPreferences.findIndex(preference => preference.foodGroupId == foodGroupId && preference.meal === meal) > -1
   }
 
   /**
@@ -164,4 +171,4 @@ class HappyMeals {
   }
 }
 
-export default HappyMeals
+export default Meals
