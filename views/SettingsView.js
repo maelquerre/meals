@@ -1,21 +1,18 @@
 import React from 'react'
-import { meals, foodGroups } from '../pages/api/meals/data'
+import meals from '../data/meals'
 import PortionsCard from '../components/cards/PortionsCard'
 import { ChevronRight, ChevronDown } from 'react-feather'
 import FoodCard from '../components/cards/FoodCard'
 import NewFoodCard from '../components/cards/NewFoodCard'
-import NewIntakeCard from '../components/cards/NewIntakeCard'
-import * as utils from '../pages/api/meals/utils'
 
 class SettingsView extends React.Component {
   constructor(props) {
     super(props)
 
     this.meals = meals
-    this.foodGroups = foodGroups
 
     this.state = {
-      portionsPreferences: [],
+      portionsPreferences: props.portionsPreferences,
       includedPreferences: [],
       expandPortionsPreferences: false,
       expandIncludedPreferences: false
@@ -69,8 +66,8 @@ class SettingsView extends React.Component {
       <div className="container">
         <div className="mb-4 bg-gray-200 rounded-lg md:rounded-xl">
           <div onClick={() => this.setState({ expandPortionsPreferences: !this.state.expandPortionsPreferences })}
-               className="flex justify-between p-4 cursor-pointer">
-            <h2 className="headline">Food portions preferences</h2>
+               className="flex justify-between py-2 px-4 md:py-4 md:px-8 cursor-pointer">
+            <h2 className="font-semibold text-lg md:text-2xl">How much you eat</h2>
             <div className="pointer-events-none flex items-center text-gray-700">
               {!this.state.expandPortionsPreferences && <ChevronRight size={18} />}
               {this.state.expandPortionsPreferences && <ChevronDown size={18} />}
@@ -78,9 +75,9 @@ class SettingsView extends React.Component {
           </div>
 
           <div className={"grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden"
-          + (this.state.expandPortionsPreferences ? ' h-auto p-4 pt-8' : ' h-0 p-0')}>
+          + (this.state.expandPortionsPreferences ? ' h-auto p-4 md:p-8' : ' h-0 p-0')}>
             {this.state.portionsPreferences.map((portionsPreference, index) => {
-              const foodGroup = this.foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
+              const foodGroup = this.props.foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
               return (
                 <PortionsCard key={index}
                               id={foodGroup.id}
@@ -96,15 +93,15 @@ class SettingsView extends React.Component {
 
         <div className="bg-gray-200 rounded-lg md:rounded-xl">
           <div onClick={() => this.setState({ expandIncludedPreferences: !this.state.expandIncludedPreferences })}
-               className="flex justify-between p-4 cursor-pointer">
-            <h2 className="headline">Included food preferences</h2>
+               className="flex justify-between py-2 px-4 md:py-4 md:px-8 cursor-pointer">
+            <h2 className="font-semibold text-lg md:text-2xl">What & when you eat</h2>
             <div className="pointer-events-none flex items-center text-gray-700">
               {!this.state.expandIncludedPreferences && <ChevronRight size={18} />}
               {this.state.expandIncludedPreferences && <ChevronDown size={18} />}
             </div>
           </div>
 
-          <div className={"overflow-hidden" + (this.state.expandIncludedPreferences ? ' h-auto p-4' : ' h-0 p-0')}>
+          <div className={"overflow-hidden" + (this.state.expandIncludedPreferences ? ' h-auto p-4 md:p-8' : ' h-0 p-0')}>
             {this.meals.map((meal, index) => {
               const includedFoodGroups = this.state.includedPreferences.filter(foodGroup => foodGroup.meal === meal)
 
@@ -119,8 +116,8 @@ class SettingsView extends React.Component {
                                 name={foodGroup.name} />
                     })}
                     <NewFoodCard className="spanx-row md:spanx-1"
-                                 foodGroups={this.foodGroups}
-                                 addFoodGroup={foodGroupId => this.includeFoodGroup(foodGroupId, meal)} />
+                                 foodGroups={this.props.foodGroups}
+                                 includeFoodGroup={foodGroupId => this.includeFoodGroup(foodGroupId, meal)} />
                   </div>
                 </div>
               )

@@ -6,7 +6,6 @@ import '../styles/index.css'
 import Link from 'next/link'
 import { Settings } from 'react-feather'
 
-
 class Layout extends React.Component {
   render() {
     const { children } = this.props

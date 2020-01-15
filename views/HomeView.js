@@ -1,17 +1,19 @@
 import React from 'react'
-import * as utils from '../pages/api/meals/utils'
-import * as data from '../pages/api/meals/data'
-import HappyMeals from '../pages/api/meals/HappyMeals'
+
+import days from '../data/days'
+import meals from '../data/meals'
+import { intakeEquals } from '../utils'
+
+import HappyMeals from '../model/HappyMeals'
 import MealRow from '../components/MealRow'
 import { ChevronDown, ChevronUp } from 'react-feather'
-import useSWR from 'swr'
 
 class HomeView extends React.Component {
   constructor(props) {
     super(props)
 
-    this.days = data.days
-    this.meals = data.meals
+    this.days = days
+    this.meals = meals
 
     this.state = {
       currentDay: 'monday',
@@ -55,7 +57,7 @@ class HomeView extends React.Component {
     let intakes = [...this.state.intakes]
 
     // Check if the intake to add already exists
-    const index = intakes.findIndex(intake => utils.intakeEquals(intake, newIntake))
+    const index = intakes.findIndex(intake => intakeEquals(intake, newIntake))
 
     // If the intake already exists
     if (index > -1) {
@@ -79,7 +81,7 @@ class HomeView extends React.Component {
     /* Get intakes array to update it after */
     let intakes = JSON.parse(localStorage.getItem('intakes'))
 
-    const index = intakes.findIndex(oldIntake => utils.intakeEquals(oldIntake, intake))
+    const index = intakes.findIndex(oldIntake => intakeEquals(oldIntake, intake))
     if (index > -1) {
       intakes.splice(index, 1)
       this.updateIntakes(intakes)
@@ -119,6 +121,13 @@ class HomeView extends React.Component {
     return (
       <>
         <div className="sticky top-0 flex flex-col mb-10 bg-white z-10">
+          <div className="container">
+            <button onClick={this.generateMeals}
+                    className={'block mx-auto py-2 px-4 text-white bg-primary rounded-full'}>
+              Generate meals
+            </button>
+          </div>
+
           <div className="container md:hidden">
             <div className="relative py-2 text-primary cursor-pointer"
                  onClick={this.toggleNav}>
@@ -129,8 +138,7 @@ class HomeView extends React.Component {
               </div>
             </div>
           </div>
-
-          <nav className={`container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto ${this.state.navExpanded ? ' expand' : ''}`}>
+          <nav className={`container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto${this.state.navExpanded ? ' expand' : ''}`}>
             {this.days.map((day, index) => {
               return (
                 <div key={index}
@@ -145,11 +153,6 @@ class HomeView extends React.Component {
               )
             })}
           </nav>
-
-          <button onClick={this.generateMeals}
-                  className={'py-2 px-4 text-white bg-primary rounded-full'}>
-            Generate
-          </button>
         </div>
 
         {this.meals.map((meal, index) => {

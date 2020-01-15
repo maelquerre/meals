@@ -45,11 +45,11 @@ class NewFoodCard extends React.Component {
         </div>
 
         <button className="btn btn--primary hidden md:block self-stretch"
-                onClick={() => this.props.addFoodGroup(this.state.foodId)}>
+                onClick={() => this.props.includeFoodGroup(this.state.foodId)}>
           Add
         </button>
         <button className="md:hidden self-center p-1 text-white bg-primary rounded-full focus:outline-none"
-                onClick={() => this.props.addFoodGroup(this.state.foodId)}>
+                onClick={() => this.props.includeFoodGroup(this.state.foodId)}>
           <Plus size={18} />
         </button>
       </div>

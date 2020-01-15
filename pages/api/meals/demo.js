@@ -1,4 +1,4 @@
-import HappyMeals from './HappyMeals'
+import HappyMeals from '../../../model/HappyMeals'
 
 const weekIntake = {
   monday: {

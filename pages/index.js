@@ -1,10 +1,8 @@
 import useSWR from 'swr'
+import { fetcher } from '../utils'
+
 import HomeView from '../views/HomeView'
 import LoadingView from '../views/LoadingView'
-
-function fetcher(url) {
-  return fetch(url).then(response => response.json())
-}
 
 function Index() {
   const { data, error } = useSWR('/api/meals/foods', fetcher)
