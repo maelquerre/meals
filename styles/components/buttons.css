@@ -15,3 +15,7 @@
 .btn--primary {
   @apply text-white bg-primary;
 }
+
+.btn--pill {
+  @apply rounded-full;
+}

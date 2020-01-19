@@ -46,13 +46,20 @@ npm run export
 
 A static version of the app will be built in the `out` directory.
 
+
+## Stylesheets
+
+The styles are written in [PostCSS](https://postcss.org/) to improve development efficiency.
+
+
 ## Data structure
 
 ### Intakes
 
 The intakes are contained in an array of 'intake' objects. Each intake object is defined for a specific day and meal, with corresponding foodGroup ID and portions.
 
-Example:
+#### Example
+
 ```javascript
 intakes: [
   {
@@ -66,9 +73,9 @@ intakes: [
 
 ### Portions preferences (recommendations)
 
-The initial recommendations are called `portions preferences` to be more general. These portions preferences are customisable.
+Portions preferences are quantities of food groups that are preferred to be eaten within a day or a week.
 
-The API gives recommendations based on [PNNS](https://www.mangerbouger.fr/PNNS/Le-PNNS/Qu-est-ce-que-le-PNNS).
+The [Project's API](/Glascode/meals/tree/master/pages/api/meals) gives recommendations as default portions preferences, based on [PNNS](https://www.mangerbouger.fr/PNNS/Le-PNNS/Qu-est-ce-que-le-PNNS).
 
 <details>
 <summary>Recommendations</summary>
@@ -130,9 +137,10 @@ recommendations: [
 
 ### Included preferences
 
-Foods inclusion preferences (`includedPreferences`) are foods that are preferred to eat at specific meals.
+Included preferences are food groups that are preferred to eat at specific meals.
 
-Example:
+#### Example
+
 ```javascript
 includedPreferences: [
   {
