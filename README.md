@@ -75,7 +75,7 @@ intakes: [
 
 Portions preferences are quantities of food groups that are preferred to be eaten within a day or a week.
 
-The [Project's API](/Glascode/meals/tree/master/pages/api/meals) gives recommendations as default portions preferences, based on [PNNS](https://www.mangerbouger.fr/PNNS/Le-PNNS/Qu-est-ce-que-le-PNNS).
+The [Project's API](https://github.com/Glascode/meals/tree/master/pages/api/meals) gives recommendations as default portions preferences, based on [PNNS](https://www.mangerbouger.fr/PNNS/Le-PNNS/Qu-est-ce-que-le-PNNS).
 
 <details>
 <summary>Recommendations</summary>
