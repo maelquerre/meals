@@ -9,7 +9,8 @@
   }
 
   &:focus {
-    @apply bg-primary-var outline-none shadow-outline;
+    @apply bg-primary-var;
+    @apply outline-none shadow-outline;
   }
 }
 

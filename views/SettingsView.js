@@ -105,7 +105,7 @@ class SettingsView extends React.Component {
             </div>
           </div>
 
-          <div className={"grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden"
+          <div className={"grid columns-2 md:columns-4 lg:columns-6 gapx-4 gapy-8 overflow-hidden"
           + (this.state.expandPortionsPreferences ? ' h-auto p-4 md:p-8' : ' h-0 p-0')}>
             {this.state.portionsPreferences.map((portionsPreference, index) => {
               const foodGroup = this.props.foodGroups.find(foodGroup => foodGroup.id === portionsPreference.foodGroupId)
@@ -139,7 +139,7 @@ class SettingsView extends React.Component {
                 <div key={index}
                      className="mb-8">
                   <h2 className="headline mb-4">{meal}</h2>
-                  <div className="grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden">
+                  <div className="grid columns-2 md:columns-4 lg:columns-6 gapx-4 gapy-8 overflow-hidden">
                     {includedFoodGroups.map((includedFoodGroup, index) => {
                       const foodGroupName = this.props.foodGroups.find(({ id }) => id == includedFoodGroup.foodGroupId).name
                       return <FoodCard key={index}
