@@ -9,7 +9,7 @@ function MealRow(props) {
         <h2 className="headline">{props.name}</h2>
       </div>
 
-      <div className="grid columns-4 gap-4">
+      <div className="grid columns-4 lg:columns-6 gap-4">
         {props.intakes.length > 0 && props.intakes.map((intake, index) => {
           return (
             <IntakeCard key={index}

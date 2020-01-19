@@ -39,7 +39,6 @@ class HomeView extends React.Component {
     meals.generate(this.days, this.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
-      console.log(error)
       const errors = [...this.state.errors]
       errors.push(error.message)
       this.setState({ errors: errors })
