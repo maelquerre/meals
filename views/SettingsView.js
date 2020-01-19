@@ -4,6 +4,7 @@ import PortionsCard from '../components/cards/PortionsCard'
 import { ChevronRight, ChevronDown } from 'react-feather'
 import FoodCard from '../components/cards/FoodCard'
 import NewFoodCard from '../components/cards/NewFoodCard'
+import { intakeEquals } from '../utils'
 
 class SettingsView extends React.Component {
   constructor(props) {
@@ -21,9 +22,23 @@ class SettingsView extends React.Component {
     this.includeFoodGroup = this.includeFoodGroup.bind(this)
   }
 
-  updateIncludedPreferences(includedPreferences) {
-    localStorage.setItem('includedPreferences', JSON.stringify(includedPreferences))
-    this.setState({ includedPreferences: includedPreferences })
+  updatePreferences(name, preferences) {
+    localStorage.setItem(name, JSON.stringify(preferences))
+    this.setState({ [name]: preferences })
+  }
+
+  updateFoodPortionPreference(foodGroupId, amount, kind) {
+    let portionsPreferences = [...this.state.portionsPreferences]
+
+    // Check if the intake to add already exists
+    const index = portionsPreferences.findIndex(preference => preference.foodGroupId == foodGroupId)
+
+    // If the intake already exists
+    if (index > -1) {
+      // Just update the existing intake's portions
+      portionsPreferences[index][kind] += amount
+    }
+    this.updatePreferences('portionsPreferences', portionsPreferences)
   }
 
   includeFoodGroup(newFoodGroup) {
@@ -45,7 +60,7 @@ class SettingsView extends React.Component {
     }
 
     /* Update includedPreferences with the updated array */
-    this.updateIncludedPreferences(includedPreferences)
+    this.updatePreferences('includedPreferences', includedPreferences)
   }
 
   setFromStorage(item) {
@@ -85,7 +100,7 @@ class SettingsView extends React.Component {
                               min={portionsPreference.min}
                               max={portionsPreference.max}
                               period={portionsPreference.period}
-                              updateFoodPortion={amount => this.updateFoodPortion(foodGroup.id, amount)} />
+                              updateFoodPortionPreference={(amount, kind) => this.updateFoodPortionPreference(foodGroup.id, amount, kind)} />
               )
             })}
           </div>

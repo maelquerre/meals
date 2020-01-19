@@ -24,29 +24,30 @@ class Meals {
   generate(days, meals) {
     return new Promise((resolve, reject) => {
       try {
-        // For each portion preference
-        this.portionsPreferences.forEach(preference => {
-          let day, meal, newIntake
+        days.forEach(day => {
+          meals.forEach(meal => {
+            let preference
+            let newIntake
 
-          // Test if it can be added to a random day and meal
-          do {
-            day = randomItem(days)
-            meal = randomItem(meals)
+            // Test if a new intake can be added to the day and meal
+            do {
+              preference = randomItem(this.portionsPreferences)
 
-            newIntake = {
-              day: day,
-              meal: meal,
-              foodGroupId: preference.foodGroupId,
-              portions: 1
-            }
+              newIntake = {
+                day: day,
+                meal: meal,
+                foodGroupId: preference.foodGroupId,
+                portions: 1
+              }
 
-            // Pick another day and meal if the new intake is either not
-            // included for the current meal or the limit has been reached for
-            // the preference
-          } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
+              // Pick another preference if the new intake is either not
+              // included for the current meal or the limit has been reached for
+              // the preference
+            } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
 
-          console.log('addIntake')
-          this.addIntake(newIntake)
+            console.log('addIntake')
+            this.addIntake(newIntake)
+          })
         })
         resolve(this.intakes)
       } catch (error) {
