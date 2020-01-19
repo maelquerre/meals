@@ -126,7 +126,7 @@ class HomeView extends React.Component {
         <div className="sticky top-0 flex flex-col mb-10 py-4 bg-white z-10">
           <div className="container">
             <button onClick={this.generateMeals}
-                    className={'block mx-auto py-2 px-4 text-white bg-primary rounded-full'}>
+                    className={'btn btn--primary btn--pill block mx-auto'}>
               Generate meals
             </button>
           </div>

@@ -14,7 +14,12 @@ class Layout extends React.Component {
         <header className="flex items-center p-4 bg-gray-200">
           <div className="w-1/4" />
 
-          <h1 className="w-2/4 text-3xl text-center font-semibold tracking-tight leading-none">Meals</h1>
+
+          <h1 className="w-2/4 text-3xl text-center font-semibold tracking-tight leading-none">
+            <Link href="/">
+              <a>Meals</a>
+            </Link>
+          </h1>
 
           <div className="w-1/4 flex justify-end md:justify-center">
             <Link href="/settings">

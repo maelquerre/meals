@@ -56,7 +56,7 @@ The styles are written in [PostCSS](https://postcss.org/) to improve development
 
 ### Intakes
 
-The intakes are contained in an array of 'intake' objects. Each intake object is defined for a specific day and meal, with corresponding foodGroup ID and portions.
+The intakes are an array of _intake_ objects. Each _intake_ object is defined with a specific day, meal, foodGroup ID and portions.
 
 #### Example
 
