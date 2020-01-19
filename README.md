@@ -52,13 +52,29 @@ A static version of the app will be built in the `out` directory.
 The styles are written in [PostCSS](https://postcss.org/) to improve development efficiency.
 
 
-## Data structure
+## Project structure
 
-### Intakes
+```
+meals/
+  components/ # JSX components
+  data/       # Simple js data
+  model/      # The Meal class
+  pages/      # The pages of the app
+    api/      # The API of the app
+  public/     # Public assets
+  styles/     # App styles
+  views/      # Main views of the app
+  utils.js    # Javascript utility functions
+```
+
+
+### Data
+
+#### Intakes
 
 The intakes are an array of _intake_ objects. Each _intake_ object is defined with a specific day, meal, foodGroup ID and portions.
 
-#### Example
+##### Example
 
 ```javascript
 intakes: [
@@ -71,7 +87,7 @@ intakes: [
 ]
 ```
 
-### Portions preferences (recommendations)
+#### Portions preferences (recommendations)
 
 Portions preferences are quantities of food groups that are preferred to be eaten within a day or a week.
 
@@ -135,11 +151,11 @@ recommendations: [
 </p>
 </details>
 
-### Included preferences
+#### Included preferences
 
 Included preferences are food groups that are preferred to eat at specific meals.
 
-#### Example
+##### Example
 
 ```javascript
 includedPreferences: [
