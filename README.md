@@ -73,6 +73,7 @@ The API gives recommendations based on [PNNS](https://www.mangerbouger.fr/PNNS/L
 <details>
 <summary>Recommendations</summary>
 <p>
+
 ```javascript
 recommendations: [
     {
@@ -123,6 +124,7 @@ recommendations: [
     }
   ]
 ```
+
 </p>
 </details>
 
