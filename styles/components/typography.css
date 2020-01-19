@@ -1,0 +1,11 @@
+/* Typography */
+
+.headline {
+  @apply font-semibold uppercase tracking-wide;
+}
+
+@screen md {
+  .headline {
+    @apply text-xl;
+  }
+}

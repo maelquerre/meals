@@ -2,6 +2,9 @@
 @import 'base.css';
 
 @import 'tailwindcss/components';
-@import 'components.css';
+@import 'components/buttons.css';
+@import 'components/forms.css';
+@import 'components/icons.css';
+@import 'components/typography.css';
 
 @import 'tailwindcss/utilities';

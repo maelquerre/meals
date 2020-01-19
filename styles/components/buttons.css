@@ -1,0 +1,17 @@
+/* Buttons */
+
+.btn {
+  @apply py-1 px-4 text-center rounded-lg;
+
+  &:hover {
+    @apply bg-primary-var;
+  }
+
+  &:focus {
+    @apply bg-primary-var outline-none shadow-outline;
+  }
+}
+
+.btn--primary {
+  @apply text-white bg-primary;
+}
