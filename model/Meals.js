@@ -53,7 +53,7 @@ class Meals {
                     portions: 1
                   }
 
-                  if (this.hasReachedLimit(preference, day)) {
+                  if (this.includedPreferences.length <= 0 || this.hasReachedLimit(preference, day)) {
                     break // Fix an infinite loop bug
                   }
 
