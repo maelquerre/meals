@@ -37,27 +37,32 @@ class Meals {
 
             const portionsPerCurrentMeal = this.portionsPerMeal.find(portions => portions.meal === meal).portions
 
-            // Loop over the number of portions needed for the current meal
-            for (let portions = 0; portions < portionsPerCurrentMeal; portions++) {
-              // Initialise a new intake from the current day and meal
-              do {
-                preference = randomItem(this.portionsPreferences)
+            // If the total portions (for any food group) for the current meal are not reached yet
+            if (this.totalPortionsPerDayMeal(day, meal) < portionsPerCurrentMeal) {
+              // Loop over the number of portions needed for the current meal
+              for (let portions = 0; portions < portionsPerCurrentMeal; portions++) {
 
-                newIntake = {
-                  day: day,
-                  meal: meal,
-                  foodGroupId: preference.foodGroupId,
-                  portions: 1
-                }
+                // Initialise a new intake from the current day and meal
+                do {
+                  preference = randomItem(this.portionsPreferences)
 
-                // Pick another preference if the new intake is either not included
-                // for the current day and meal or the limit has been reached for
-                // the preference
-              } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
+                  newIntake = {
+                    day: day,
+                    meal: meal,
+                    foodGroupId: preference.foodGroupId,
+                    portions: 1
+                  }
+
+                  // Pick another preference if the new intake is either not included
+                  // for the current day and meal or the limit has been reached for
+                  // the preference
+                } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
+              }
+
+              console.log('addIntake')
+              this.addIntake(newIntake)
             }
 
-            console.log('addIntake')
-            this.addIntake(newIntake)
           })
         })
         resolve(this.intakes)
@@ -135,11 +140,23 @@ class Meals {
   }
 
   /**
+   * Returns the total of the portions for a given day and meal.
+   *
+   * @param day the day to get the total from
+   * @param meal the meal to get the total from
+   * @returns {int} the total of the portions for a given day and meal
+   */
+  totalPortionsPerDayMeal(day, meal) {
+    const intakes = this.intakes.filter(intake => intake.day === day && intake.meal === meal)
+    return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
+  }
+
+  /**
    * Returns the total of the portions for a given food group ID in a given day.
    *
    * @param foodGroupId the food group ID to get the total from
    * @param day the day to get the total from
-   * @returns {int} the total of the portions for the given food group ID in he given day
+   * @returns {int} the total of the portions for the given food group ID in a given day
    */
   totalPortionsPerDay(foodGroupId, day) {
     const intakes = this.intakes.filter(intake => intake.day === day && intake.foodGroupId == foodGroupId)

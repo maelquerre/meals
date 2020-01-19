@@ -39,7 +39,10 @@ class HomeView extends React.Component {
     meals.generate(this.days, this.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
-      this.setState({ errors: [...this.state.errors].push(error.message) })
+      console.log(error)
+      const errors = [...this.state.errors]
+      errors.push(error.message)
+      this.setState({ errors: errors })
     })
   }
 
@@ -120,7 +123,7 @@ class HomeView extends React.Component {
   render() {
     return (
       <>
-        <div className="sticky top-0 flex flex-col mb-10 bg-white z-10">
+        <div className="sticky top-0 flex flex-col mb-10 py-4 bg-white z-10">
           <div className="container">
             <button onClick={this.generateMeals}
                     className={'block mx-auto py-2 px-4 text-white bg-primary rounded-full'}>
@@ -128,7 +131,7 @@ class HomeView extends React.Component {
             </button>
           </div>
 
-          <div className="container md:hidden">
+          <div className="container mt-4 md:hidden">
             <div className="relative py-2 text-primary cursor-pointer"
                  onClick={this.toggleNav}>
               {this.capitalize(this.state.currentDay)}
@@ -139,7 +142,7 @@ class HomeView extends React.Component {
             </div>
           </div>
 
-          <nav className={'container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto md:py-4'
+          <nav className={'container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto md:mt-4'
           + (this.state.navExpanded ? ' expand' : '')}>
             {this.days.map((day, index) => {
               return (
