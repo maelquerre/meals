@@ -94,7 +94,7 @@ class SettingsView extends React.Component {
         <div className="bg-gray-200 rounded-lg md:rounded-xl">
           <div onClick={() => this.setState({ expandIncludedPreferences: !this.state.expandIncludedPreferences })}
                className="flex justify-between py-2 px-4 md:py-4 md:px-8 cursor-pointer">
-            <h2 className="font-semibold text-lg md:text-2xl">What & when you eat</h2>
+            <h2 className="font-semibold text-lg md:text-2xl">What you eat and when</h2>
             <div className="pointer-events-none flex items-center text-gray-700">
               {!this.state.expandIncludedPreferences && <ChevronRight size={18} />}
               {this.state.expandIncludedPreferences && <ChevronDown size={18} />}

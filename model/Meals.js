@@ -1,3 +1,5 @@
+import { intakeEquals, randomItem } from '../utils'
+
 class Meals {
   /**
    * Constructor.
@@ -28,8 +30,8 @@ class Meals {
 
           // Test if it can be added to a random day and meal
           do {
-            day = this.randomItem(days)
-            meal = this.randomItem(meals)
+            day = randomItem(days)
+            meal = randomItem(meals)
 
             newIntake = {
               day: day,
@@ -54,13 +56,13 @@ class Meals {
   }
 
   /**
-   * Adds an intake to this intakes array.
+   * Adds portion(s) of an intake to this intakes array.
    *
-   * @param newIntake the new intake to be added to this intakes array
+   * @param newIntake the new intake with portion(s) to be added to this intakes array
    */
   addIntake(newIntake) {
     // Check if the intake to add already exists
-    const index = this.intakes.findIndex(intake => this.intakeEquals(intake, newIntake))
+    const index = this.intakes.findIndex(intake => intakeEquals(intake, newIntake))
 
     // If the intake already exists
     if (index > -1) {
@@ -78,22 +80,22 @@ class Meals {
   }
 
   /**
-   * Returns true if a food group is included in the included preferences
+   * Returns `true` if a food group is included in the included preferences
    *
    * @param meal the meal of the food group to be tested
    * @param foodGroupId the ID of the food group to be tested
-   * @returns {boolean} true if a food group is included in the included preferences ; false otherwise
+   * @returns {boolean} `true` if a food group is included in the included preferences ; `false` otherwise
    */
   isIncluded({ meal, foodGroupId }) {
     return this.includedPreferences.findIndex(preference => preference.foodGroupId == foodGroupId && preference.meal === meal) > -1
   }
 
   /**
-   * Returns true if a portions preference food group has reached limit for a given day.
+   * Returns `true` if a portions preference food group has reached limit for the week or a given day.
    *
    * @param portionsPreference the portions preference to be tested
    * @param day the day to be tested
-   * @returns {boolean} true if a portion preference has reached limit for a given day ; false otherwise
+   * @returns {boolean} `true` if a portion preference has reached limit for the week or a given day ; `false` otherwise
    */
   hasReachedLimit(portionsPreference, day) {
     let hasReachedLimit = false
@@ -101,10 +103,10 @@ class Meals {
     switch (portionsPreference.period) {
       case 'day':
         if (portionsPreference.min) {
-          hasReachedLimit = hasReachedLimit && this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.min
+          hasReachedLimit = hasReachedLimit && this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.min
         }
         if (portionsPreference.max) {
-          hasReachedLimit = hasReachedLimit && this.totalPortionsByDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
+          hasReachedLimit = hasReachedLimit && this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
         }
         break
       case 'week':
@@ -127,7 +129,7 @@ class Meals {
    * @param day the day to get the total from
    * @returns {int} the total of the portions for the given food group ID in he given day
    */
-  totalPortionsByDay(foodGroupId, day) {
+  totalPortionsPerDay(foodGroupId, day) {
     const intakes = this.intakes.filter(intake => intake.day === day && intake.foodGroupId == foodGroupId)
     return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
   }
@@ -141,29 +143,6 @@ class Meals {
   totalPortions(foodGroupId) {
     const intakes = this.intakes.filter(intake => intake.foodGroupId == foodGroupId)
     return intakes.map(intake => intake.portions).reduce((total, portions) => total + portions, 0)
-  }
-
-  /**
-   * Returns true if two given intakes are the same.
-   *
-   * @param intake the first intake to be tested
-   * @param day the day of the second intake to be tested
-   * @param meal the meal of the second intake to be tested
-   * @param foodGroupId the food group ID of the second intake to be tested
-   * @returns {boolean} true if the two intakes are the same ; false otherwise
-   */
-  intakeEquals(intake, { day, meal, foodGroupId }) {
-    return intake.day === day && intake.meal === meal && intake.foodGroupId == foodGroupId
-  }
-
-  /**
-   * Returns a random item from a given array
-   *
-   * @param array the given array
-   * @returns {*} a random item from the given array
-   */
-  randomItem(array) {
-    return array[Math.floor((Math.random() * array.length))]
   }
 
   getIntakes() {

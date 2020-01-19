@@ -39,6 +39,7 @@ export default class Meals extends App {
         <Head>
           <title>Meals</title>
           <link rel="icon" type="image/png" href="/favicon.png" />
+          <link rel="stylesheet" type="text/css" href="https://rsms.me/inter/inter.css" />
           <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Glascode/matrix@master/dist/matrix.min.css" />
         </Head>
         <Layout>
