@@ -8,10 +8,16 @@ class Meals {
    * @param portionsPreferences An array
    * @param includedPreferences An array containing objects of meals associated with included food groups ids.
    */
-  constructor(initialIntakes = [], portionsPreferences = [], includedPreferences = []) {
+  constructor(initialIntakes, portionsPreferences, includedPreferences = []) {
     this.intakes = initialIntakes
     this.portionsPreferences = portionsPreferences
     this.includedPreferences = includedPreferences
+    this.portionsPerMeal = [
+      { meal: 'breakfast', portions: 3 },
+      { meal: 'lunch', portions: 5 },
+      { meal: 'snack', portions: 2 },
+      { meal: 'dinner', portions: 4 }
+    ]
   }
 
   /**
@@ -29,21 +35,26 @@ class Meals {
             let preference
             let newIntake
 
-            // Test if a new intake can be added to the day and meal
-            do {
-              preference = randomItem(this.portionsPreferences)
+            const portionsPerCurrentMeal = this.portionsPerMeal.find(portions => portions.meal === meal).portions
 
-              newIntake = {
-                day: day,
-                meal: meal,
-                foodGroupId: preference.foodGroupId,
-                portions: 1
-              }
+            // Loop over the number of portions needed for the current meal
+            for (let portions = 0; portions < portionsPerCurrentMeal; portions++) {
+              // Initialise a new intake from the current day and meal
+              do {
+                preference = randomItem(this.portionsPreferences)
 
-              // Pick another preference if the new intake is either not
-              // included for the current meal or the limit has been reached for
-              // the preference
-            } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
+                newIntake = {
+                  day: day,
+                  meal: meal,
+                  foodGroupId: preference.foodGroupId,
+                  portions: 1
+                }
+
+                // Pick another preference if the new intake is either not included
+                // for the current day and meal or the limit has been reached for
+                // the preference
+              } while (!this.isIncluded(newIntake) || this.hasReachedLimit(preference, day))
+            }
 
             console.log('addIntake')
             this.addIntake(newIntake)
@@ -88,11 +99,11 @@ class Meals {
    * @returns {boolean} `true` if a food group is included in the included preferences ; `false` otherwise
    */
   isIncluded({ meal, foodGroupId }) {
-    return this.includedPreferences.findIndex(preference => preference.foodGroupId == foodGroupId && preference.meal === meal) > -1
+    return this.includedPreferences.some(preference => preference.foodGroupId == foodGroupId && preference.meal === meal)
   }
 
   /**
-   * Returns `true` if a portions preference food group has reached limit for the week or a given day.
+   * Returns `true` if a portions preference's food group has reached its limit for the week or a given day.
    *
    * @param portionsPreference the portions preference to be tested
    * @param day the day to be tested
@@ -104,18 +115,18 @@ class Meals {
     switch (portionsPreference.period) {
       case 'day':
         if (portionsPreference.min) {
-          hasReachedLimit = hasReachedLimit && this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.min
+          hasReachedLimit = hasReachedLimit || this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.min
         }
         if (portionsPreference.max) {
-          hasReachedLimit = hasReachedLimit && this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
+          hasReachedLimit = hasReachedLimit || this.totalPortionsPerDay(portionsPreference.foodGroupId, day) >= portionsPreference.max
         }
         break
       case 'week':
         if (portionsPreference.min) {
-          hasReachedLimit = hasReachedLimit && this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.min
+          hasReachedLimit = hasReachedLimit || this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.min
         }
         if (portionsPreference.max) {
-          hasReachedLimit = hasReachedLimit && this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.max
+          hasReachedLimit = hasReachedLimit || this.totalPortions(portionsPreference.foodGroupId) >= portionsPreference.max
         }
         break
     }

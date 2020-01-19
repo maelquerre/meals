@@ -13,7 +13,7 @@ function FoodCard(props) {
         <div className="text-lg md:text-center text-gray-700 mr-4 md:mr-0 md:mb-4">{props.name}</div>
       </div>
 
-      <button onClick={props.removeFood}
+      <button onClick={props.excludeFoodGroup}
               className="md:absolute md:top-0 md:right-0 md:p-4 focus:outline-none"
               title="Remove intake">
         <Trash2 size={18} className="text-gray-600" />

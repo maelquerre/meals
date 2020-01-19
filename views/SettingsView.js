@@ -1,10 +1,10 @@
 import React from 'react'
 import meals from '../data/meals'
+
 import PortionsCard from '../components/cards/PortionsCard'
-import { ChevronRight, ChevronDown } from 'react-feather'
 import FoodCard from '../components/cards/FoodCard'
 import NewFoodCard from '../components/cards/NewFoodCard'
-import { intakeEquals } from '../utils'
+import { ChevronRight, ChevronDown } from 'react-feather'
 
 class SettingsView extends React.Component {
   constructor(props) {
@@ -41,17 +41,19 @@ class SettingsView extends React.Component {
     this.updatePreferences('portionsPreferences', portionsPreferences)
   }
 
+
+
   includeFoodGroup(newFoodGroup) {
     /* Get includedPreferences array to update it after */
     let includedPreferences = [...this.state.includedPreferences]
 
     // Check if the food group to add already exists
-    const index = includedPreferences.findIndex(includedFoodGroup => {
-      return includedFoodGroup.id === newFoodGroup.foodGroupId && includedFoodGroup.meal === newFoodGroup.meal
+    const alreadyIncluded = includedPreferences.some(includedFoodGroup => {
+      return includedFoodGroup.foodGroupId == newFoodGroup.foodGroupId && includedFoodGroup.meal === newFoodGroup.meal
     })
 
     // If the food group doesn't exist
-    if (index <= -1) {
+    if (!alreadyIncluded) {
       // Add the new food group
       includedPreferences.push({
         meal: newFoodGroup.meal,
@@ -61,6 +63,20 @@ class SettingsView extends React.Component {
 
     /* Update includedPreferences with the updated array */
     this.updatePreferences('includedPreferences', includedPreferences)
+  }
+
+  excludeFoodGroup(foodGroup) {
+    /* Get included preferences array to update it after */
+    let includedPreferences = JSON.parse(localStorage.getItem('includedPreferences'))
+
+    const index = includedPreferences.findIndex(includedFoodGroup => {
+      return includedFoodGroup.foodGroupId == foodGroup.foodGroupId && includedFoodGroup.meal === foodGroup.meal
+    })
+
+    if (index > -1) {
+      includedPreferences.splice(index, 1)
+      this.updatePreferences('includedPreferences', includedPreferences)
+    }
   }
 
   setFromStorage(item) {
@@ -119,20 +135,24 @@ class SettingsView extends React.Component {
           <div className={"overflow-hidden" + (this.state.expandIncludedPreferences ? ' h-auto p-4 md:p-8' : ' h-0 p-0')}>
             {this.meals.map((meal, index) => {
               const includedFoodGroups = this.state.includedPreferences.filter(foodGroup => foodGroup.meal === meal)
-
               return (
                 <div key={index}
                      className="mb-8">
                   <h2 className="headline mb-4">{meal}</h2>
                   <div className="grid columns-2 md:columns-4 gapx-4 gapy-8 overflow-hidden">
-                    {includedFoodGroups.map((foodGroup, index) => {
-                      <FoodCard key={index}
-                                id={foodGroup.id}
-                                name={foodGroup.name} />
+                    {includedFoodGroups.map((includedFoodGroup, index) => {
+                      const foodGroupName = this.props.foodGroups.find(({ id }) => id == includedFoodGroup.foodGroupId).name
+                      return <FoodCard key={index}
+                                       id={includedFoodGroup.foodGroupId}
+                                       name={foodGroupName}
+                                       excludeFoodGroup={() => this.excludeFoodGroup({
+                                         foodGroupId: includedFoodGroup.foodGroupId,
+                                         meal
+                                       })} />
                     })}
                     <NewFoodCard className="spanx-row md:spanx-1"
                                  foodGroups={this.props.foodGroups}
-                                 includeFoodGroup={foodGroupId => this.includeFoodGroup(foodGroupId, meal)} />
+                                 includeFoodGroup={foodGroupId => this.includeFoodGroup({ foodGroupId, meal })} />
                   </div>
                 </div>
               )

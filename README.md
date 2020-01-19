@@ -1,5 +1,7 @@
 # Meals
 
+A meals manager built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/).
+
 ## Getting started
 
 ### Prerequisites
@@ -24,6 +26,9 @@ Start Next.js in development mode:
 ```
 npm run dev
 ```
+
+This starts a development server on http://localhost:3000.
+
 
 ### Production
 

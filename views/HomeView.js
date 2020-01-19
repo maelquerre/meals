@@ -39,7 +39,7 @@ class HomeView extends React.Component {
     meals.generate(this.days, this.meals).then(intakes => {
       this.updateIntakes(intakes)
     }).catch(error => {
-      this.setState({ errors: [...this.state.errors].push(error) })
+      this.setState({ errors: [...this.state.errors].push(error.message) })
     })
   }
 
@@ -138,7 +138,9 @@ class HomeView extends React.Component {
               </div>
             </div>
           </div>
-          <nav className={`container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto${this.state.navExpanded ? ' expand' : ''}`}>
+
+          <nav className={'container nav flex flex-col md:flex-row md:justify-center flex-wrap md:h-auto md:py-4'
+          + (this.state.navExpanded ? ' expand' : '')}>
             {this.days.map((day, index) => {
               return (
                 <div key={index}
