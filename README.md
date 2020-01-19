@@ -46,6 +46,14 @@ npm run export
 
 A static version of the app will be built in the `out` directory.
 
+### Usage
+
+On the homepage, add the food groups you already ate for different meals in the different days. Click on the 'Generate meals' button to generate the recommendations. You can choose to not enter any meal before generating the recommendations, it will just generate all the meals for you.
+
+On the settings page (cogwheel button in the top bar), you can set some preferences for the meals that will be generated:
+- How much you eat: for setting the minimum or maximum portions you'll want to have.
+- What you eat and when: for setting your eating habits for the different meals.
+
 
 ## Stylesheets
 
