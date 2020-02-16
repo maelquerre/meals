@@ -13,7 +13,7 @@ A meals manager built with [Next.js](https://nextjs.org/) and [Tailwind CSS](htt
 
 1. Clone the repo
 ```sh
-git clone https://glascode.github.io/meals
+git clone https://github.com/Glascode/meals
 ```
 2. Install dependencies
 ```sh
